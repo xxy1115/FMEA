@@ -1,0 +1,38 @@
+user:
+  user01:
+    - "cindy3"
+    - "Fmeamaster!"
+project:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/saveOrUpdate"
+    "json":
+      "columns": [ ]
+      "customer": ""
+      "customerNeedFile": [ ]
+      "deliverable": "DFMEA-KCDS-DVP"
+      "enProgramName": ""
+      "enddate": "2022-07-30"
+      "experienceFile": [ ]
+      "instituteName": ""
+      "owner":
+      "ownerName": ""
+      "platform": ""
+      "processInitiatorId": ""
+      "product": { }
+      "productId": ""
+      "productName": ""
+      "productNum": "PA2206180002"
+      "programName": ""
+      "programNum": ""
+      "programOwner": ""
+      "programOwnerName": ""
+      "programSerial": ""
+      "projectName": ""
+      "projectNum": ""
+      "relationFileList": [ ]
+      "remark": ""
+      "secrecyGrade": ""
+      "sopDate": ""
+      "uploadAttachmentList": [ ]
+      "startdate": "2022-07-10"

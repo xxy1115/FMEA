@@ -1,0 +1,335 @@
+user:
+  user01:
+    - "cindy3"
+    - "Fmeamaster!"
+project:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/saveOrUpdate"
+    "json":
+      "columns": [ ]
+      "customer": ""
+      "customerNeedFile": [ ]
+      "deliverable": "DFMEA-KCDS-DVP"
+      "enProgramName": ""
+      "enddate": "2022-07-30"
+      "experienceFile": [ ]
+      "instituteName": ""
+      "owner":
+      "ownerName": ""
+      "platform": ""
+      "processInitiatorId": ""
+      "product": { }
+      "productId": ""
+      "productName": ""
+      "productNum": "PA2206180002"
+      "programName": ""
+      "programNum": ""
+      "programOwner": ""
+      "programOwnerName": ""
+      "programSerial": ""
+      "projectName": ""
+      "projectNum": ""
+      "relationFileList": [ ]
+      "remark": ""
+      "secrecyGrade": ""
+      "sopDate": ""
+      "uploadAttachmentList": [ ]
+      "startdate": "2022-07-10"
+add_product_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/addProductNodes"
+    "json":
+      - "enProductName": null
+        "level": 1
+        "parentSerial": ""
+        "partsName": ""
+        "partsNum": "PA2207130001"
+        "productId": ""
+        "productName": ""
+        "projectSerial": ""
+      - "enProductName": null
+        "level": 1
+        "parentSerial": ""
+        "partsName": ""
+        "partsNum": "PA2207130002"
+        "productId": ""
+        "productName": ""
+        "projectSerial": ""
+      - "enProductName": null
+        "level": 1
+        "parentSerial": ""
+        "partsName": ""
+        "partsNum": "PA2207130003"
+        "productId": ""
+        "productName": ""
+        "projectSerial": ""
+edit_product_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/updateProjectProductTree"
+    "json":
+      "partsName": "小同步器"
+      "productId": ""
+      "serialNum": ""
+add_function_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectFunction/saveOrUpdate"
+    "json":
+      - "edituser": 1
+        "enFunctionName": ""
+        "functionName1": "音频输出"
+        "functionSerial1": ""
+        "functionType": ""
+        "level": "1"
+        "parentSerial": "-1"
+        "pptSerial": ""
+      - "edituser": 2
+        "enFunctionName": ""
+        "functionName1": "性能稳定"
+        "functionSerial1": ""
+        "functionType": ""
+        "level": "1"
+        "parentSerial": "-1"
+        "pptSerial": ""
+      - "edituser": 3
+        "enFunctionName": ""
+        "functionName1": "不晃动、不松脱"
+        "functionSerial1": ""
+        "functionType": ""
+        "level": "1"
+        "parentSerial": "-1"
+        "pptSerial": ""
+edit_function_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectFunction/updatePF"
+    "json":
+      "enFunctionName": ""
+      "functionName1": "保持力200~300N"
+      "functionSerial1": ""
+      "projectSerial": ""
+      "serialNum": ""
+      "sync": false
+add_feature_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectFeature/saveFeatures"
+    "json":
+      - "controlFeature": 1
+        "enFeature": ""
+        "enTechnicalRequirements": "en1"
+        "feature": "防水等级"
+        "featureSymbolSerial": null
+        "pptSerial": ""
+        "productFeatureSerial": ""
+        "programId": null
+        "sort": 4
+        "technicalRequirements": "技术要求1"
+      - "controlFeature": 1
+        "enFeature": ""
+        "enTechnicalRequirements": "en2"
+        "feature": "待机时长"
+        "featureSymbolSerial": null
+        "pptSerial": ""
+        "productFeatureSerial": ""
+        "programId": null
+        "sort": 5
+        "technicalRequirements": "技术要求2"
+      - "controlFeature": 1
+        "enFeature": ""
+        "enTechnicalRequirements": "en3"
+        "feature": "密封接口尺寸"
+        "featureSymbolSerial": null
+        "pptSerial": ""
+        "productFeatureSerial": ""
+        "programId": null
+        "sort": 6
+        "technicalRequirements": "技术要求3"
+edit_feature_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectFeature/updateProjectFeature"
+    "json":
+      "enTechnicalRequirements": ""
+      "feature": "采集精度"
+      "featureSymbolSerial": ""
+      "productFeatureSerial": ""
+      "serialNum": ""
+      "technicalRequirements": ""
+add_invalid_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectInvalid/saveOrUpdate"
+    "json":
+      - "edituser": 1
+        "enInvalidModeName": ""
+        "invalidmodeName": "测试失效1019"
+        "invalidmodeSerial": ""
+        "occurrence": ""
+        "pfSerial": ""
+        "pptSerial": ""
+        "severity": ""
+      - "edituser": 2
+        "enInvalidModeName": ""
+        "invalidmodeName": "图像模糊"
+        "invalidmodeSerial": ""
+        "occurrence": ""
+        "pfSerial": ""
+        "pptSerial": ""
+        "severity": ""
+      - "edituser": 3
+        "enInvalidModeName": ""
+        "invalidmodeName": "质保周期短"
+        "invalidmodeSerial": ""
+        "occurrence": ""
+        "pfSerial": ""
+        "pptSerial": ""
+        "severity": ""
+edit_invalid_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectInvalid/updatePI"
+    "json":
+      "enInvalidModeName": ""
+      "invalidmodeName": "失效测试5"
+      "invalidmodeSerial": ""
+      "occurrence": ""
+      "serialNum": ""
+      "severity": ""
+add_reason_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectInvalid/saveOrUpdate"
+    "json":
+      - "edituser": 1
+        "enInvalidModeName": ""
+        "invalidmodeName": "头道条漏修边"
+        "invalidmodeSerial": ""
+        "occurrence": ""
+        "severity": ""
+      - "edituser": 2
+        "enInvalidModeName": ""
+        "invalidmodeName": "锁车状态无法切换OFF模式"
+        "invalidmodeSerial": ""
+        "occurrence": ""
+        "severity": ""
+      - "edituser": 3
+        "enInvalidModeName": ""
+        "invalidmodeName": "油缸端面内倒角过大"
+        "invalidmodeSerial": ""
+        "occurrence": ""
+        "severity": ""
+edit_reason_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectInvalid/save"
+    "json":
+      "enInvalidModeName": ""
+      "invalidmodeName": "错判"
+      "invalidmodeSerial": ""
+      "occurrence": ""
+      "severity": ""
+add_p_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectMeasure/savePM"
+    "json":
+      - "det": null
+        "edituser": 1
+        "enMeasuresName": ""
+        "measuresFrom": "0"
+        #0是现行，1是优化
+        "measuresName": "仿真验证增加APM1 VOS的3 sigma仿真确认"
+        "measuresSerial": ""
+        "measuresType": 0
+        #0是现行预防 1是现行探测，2是优化预防 3是优化探测
+        "occurrence": ""
+        "pidSerial": ""
+        "pifSerial": ""
+        "sync": false
+        "technicalrequirement": null
+      - "det": null
+        "edituser": 2
+        "enMeasuresName": ""
+        "measuresFrom": "0"
+        "measuresName": "根据设计要求优化工艺器件选用标准"
+        "measuresSerial": ""
+        "measuresType": 0
+        "occurrence": ""
+        "pidSerial": ""
+        "pifSerial": ""
+        "sync": false
+        "technicalrequirement": null
+edit_p_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectMeasure/updatePM"
+    "json":
+      "det": null
+      "enMeasuresName": ""
+      "measuresName": "设计调整在LS_VDD_VSUP中加入SHDN电路，确定初始态"
+      "measuresSerial": ""
+      "measuresStatus": ""
+      "measuresType": "0"
+      "occurrence": ""
+      "pidSerial": ""
+      "pptSerial": ""
+      "projectSerial": ""
+      "serialNum": ""
+      "sync": false
+      "technicalrequirement": ""
+add_d_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectMeasure/savePM"
+    "json":
+      - "controlMethod": null
+        "det": ""
+        "edituser": 2
+        "enMeasuresName": ""
+        "measuresFrom": "0"
+        "measuresName": "实验室测试方案改善，通过iRtx_edge来调节时序"
+        "measuresSerial": ""
+        "measuresType": 1
+        "pidSerial": ""
+        "pifSerial": ""
+        "reactionPlan": null
+        "sampleFrequency": null
+        "samplesize": null
+        "sync": false
+        "technicalrequirement": null
+      - "controlMethod": null
+        "det": ""
+        "edituser": 3
+        "enMeasuresName": ""
+        "measuresFrom": "0"
+        "measuresName": "增加AC测试"
+        "measuresSerial": ""
+        "measuresType": 1
+        "pidSerial": ""
+        "pifSerial": ""
+        "reactionPlan": null
+        "sampleFrequency": null
+        "samplesize": null
+        "sync": false
+        "technicalrequirement": null
+edit_d_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/projectMeasure/updatePM"
+    "json":
+      "det": ""
+      "enMeasuresName": ""
+      "measuresName": "实验室测试"
+      "measuresSerial": ""
+      "measuresStatus": ""
+      "measuresType": "1"
+      "pidSerial": ""
+      "pptSerial": ""
+      "projectSerial": ""
+      "serialNum": ""
+      "sync": false
+      "technicalrequirement": ""

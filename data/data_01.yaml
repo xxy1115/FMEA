@@ -1,0 +1,69 @@
+user:
+  user01:
+    - "cindy3"
+    - "Fmeamaster!"
+program:
+  "api":
+    "method": "post"
+    "url": "/program_end/program/saveOrUpdate"
+    "json":
+      "columns": [ ]
+      "startDate": "2022-07-25"
+      "endDate": "2022-08-05"
+      "model": ""
+      "platform": ""
+      "productModel": ""
+      "productId": ""
+      "productName": ""
+      "productNum": "PA2207070004"
+      "programName": ""
+      "programNum": ""
+      "programOwnerName": "cindy3"
+      "programType": ""
+project:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/saveOrUpdate"
+    "json":
+      "columns": [ ]
+      "customer": ""
+      "customerNeedFile": [ ]
+      "deliverable": "DFMEA-KCDS-DVP"
+      "enProgramName": ""
+      "enddate": "2022-07-30T16:00:00.000Z"
+      "experienceFile": [ ]
+      "instituteName": ""
+      "owner":
+      "ownerName": ""
+      "platform": ""
+      "processInitiatorId": ""
+      "product": { }
+      "productId": ""
+      "productName": ""
+      "productNum": "PA2207030007"
+      "programName": ""
+      "programNum": ""
+      "programOwner": ""
+      "programOwnerName": ""
+      "programSerial": ""
+      "projectName": ""
+      "projectNum": ""
+      "relationFileList": [ ]
+      "remark": ""
+      "secrecyGrade": ""
+      "sopDate": ""
+      "uploadAttachmentList": [ ]
+      "startdate": "2022-07-10T16:00:00.000Z"
+project_list:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/list"
+    "json":
+      "from": 0
+      "pageSize": 10
+      "platform": ""
+      "projectSerialNum": null
+      "searchKey": ""
+      "sortColumn": ""
+      "userId":
+      "userRole":

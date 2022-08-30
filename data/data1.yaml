@@ -1,0 +1,25 @@
+login:
+  "api":
+    "method": "post"
+    "url": "/fmea/login"
+    "data":
+      "username": "cindy1"
+      "password": "3fc2b787b7482b5c93061c6a46a0fe53"
+      "adPassword": ""
+      "forceLogin": True
+list:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/list"
+    "json":
+      "from": 0
+      "pageSize": 10
+      "platform": ""
+      "projectSerialNum": ""
+      "searchKey": ""
+      "userId": "1679"
+      "userRole": "5"
+  "user":
+    "username": "cindy1"
+    "password": "Fmeamaster!"
+

@@ -1,0 +1,148 @@
+user:
+  user01:
+    - "cindy3"
+    - "Fmeamaster!"
+project:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/saveOrUpdate"
+    "json":
+      "columns": [ ]
+      "customer": ""
+      "customerNeedFile": [ ]
+      "deliverable": "DFMEA-KCDS-DVP"
+      "enProgramName": ""
+      "enddate": "2022-07-30"
+      "experienceFile": [ ]
+      "instituteName": ""
+      "owner":
+      "ownerName": ""
+      "platform": ""
+      "processInitiatorId": ""
+      "product": { }
+      "productId": ""
+      "productName": ""
+      "productNum": "PA2206180002"
+      "programName": ""
+      "programNum": ""
+      "programOwner": ""
+      "programOwnerName": ""
+      "programSerial": ""
+      "projectName": ""
+      "projectNum": ""
+      "relationFileList": [ ]
+      "remark": ""
+      "secrecyGrade": ""
+      "sopDate": ""
+      "uploadAttachmentList": [ ]
+      "startdate": "2022-07-10"
+add_function1_nodes:
+  #添加根节点下的功能节点
+  "api":
+    "method": "post"
+    "url": "/fmea/projectFunction/saveOrUpdate"
+    "json":
+      - "edituser": 2
+        "enFunctionName": ""
+        "functionName1": "音频输出"
+        "functionSerial1": ""
+        "functionType": ""
+        "level": "1"
+        "parentSerial": "-1"
+        "pptSerial": ""
+add_invalid1_nodes:
+  #添加根节点下的功能下的失效节点
+  "api":
+    "method": "post"
+    "url": "/fmea/projectInvalid/saveOrUpdate"
+    "json":
+      - "edituser": 1
+        "enInvalidModeName": ""
+        "invalidmodeName": "失效测试5"
+        "invalidmodeSerial": ""
+        "occurrence": ""
+        "pfSerial": ""
+        "pptSerial": ""
+        "severity": ""
+add_product2_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/addProductNodes"
+    "json":
+      - "enProductName": ""
+        "level": 2
+        "parentSerial": ""
+        "partsName": "发动机"
+        "partsNum": ""
+        "productId": ""
+        "productName": ""
+        "projectSerial": ""
+add_function2_nodes:
+  #添加二级产品下的功能节点
+  "api":
+    "method": "post"
+    "url": "/fmea/projectFunction/saveOrUpdate"
+    "json":
+      - "edituser": 2
+        "enFunctionName": ""
+        "functionName1": "提供解锁功能"
+        "functionSerial1": ""
+        "functionType": ""
+        "level": "1"
+        "parentSerial": "-1"
+        "pptSerial": ""
+add_invalid2_nodes:
+  #添加二级产品下的失效节点
+  "api":
+    "method": "post"
+    "url": "/fmea/projectInvalid/saveOrUpdate"
+    "json":
+      - "edituser": 1
+        "enInvalidModeName": ""
+        "invalidmodeName": "锁车状态无法切换OFF模式"
+        "invalidmodeSerial": ""
+        "occurrence": ""
+        "pfSerial": ""
+        "pptSerial": ""
+        "severity": ""
+add_product3_nodes:
+  "api":
+    "method": "post"
+    "url": "/fmea/project/addProductNodes"
+    "json":
+      - "enProductName": ""
+        "level": 2
+        "parentSerial": ""
+        "partsName": "晶振"
+        "partsNum": ""
+        "productId": ""
+        "productName": ""
+        "projectSerial": ""
+add_function3_nodes:
+  #添加三级产品下的功能节点
+  "api":
+    "method": "post"
+    "url": "/fmea/projectFunction/saveOrUpdate"
+    "json":
+      - "edituser": 1
+        "enFunctionName": ""
+        "functionName1": "发波"
+        "functionSerial1": ""
+        "functionType": ""
+        "level": "1"
+        "parentSerial": "-1"
+        "pptSerial": ""
+add_invalid3_nodes:
+  #添加三级产品下的失效节点
+  "api":
+    "method": "post"
+    "url": "/fmea/projectInvalid/saveOrUpdate"
+    "json":
+      - "edituser": 1
+        "enInvalidModeName": ""
+        "invalidmodeName": "头道条漏修边"
+        "invalidmodeSerial": ""
+        "occurrence": ""
+        "pfSerial": ""
+        "pptSerial": ""
+        "severity": ""
