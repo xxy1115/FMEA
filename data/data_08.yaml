@@ -1,0 +1,67 @@
+user:
+  user01:
+    - "cindy3"
+    - "Fmeamaster!"
+project:
+  "api":
+    "method": "post"
+    "url": "/pfmea_end/pfmeaProject/saveOrUpdate"
+    "json":
+      "branchName": ""
+      "columns": [ ]
+      "customer": ""
+      "customerNeedFile": [ ]
+      "deliverable": "PFMEA-ControlPlan-PfmeaKCDS"
+      "enProcedureName": ""
+      "enProgramName": ""
+      "enddate": "2022-09-30"
+      "experienceFile": [ ]
+      "lineBodyName": ""
+      "owner": ""
+      "ownerName": ""
+      "pfmeaRelatedProducts": [ ]
+      "procedureName": ""
+      "product": { }
+      "productId": ""
+      "productName": ""
+      "productNum": ""
+      "productNums": ""
+      "programName": ""
+      "programNum": ""
+      "programOwner": ""
+      "programOwnerName": ""
+      "programSerial": ""
+      "projectDescription": ""
+      "projectName": ""
+      "projectNum": ""
+      "relationFileList": [ ]
+      "secrecyGrade": ""
+      "sopDate": "2022-9-15"
+      "startdate": "2022-9-15"
+      "uploadAttachmentList": [ ]
+add_procedure_nodes:
+  "api":
+    "method": "post"
+    "url": "/pfmea_end/pfmeaProcessProcedure/save"
+    "json":
+      - "level": 1
+        "parentProjectProcedureSerial": ""
+        "ppSerial": "-1"
+        "processNo": "OP10"
+        "processProcedureId": ""
+        "projectSerial": ""
+        "sort": "10"
+      - "level": 1
+        "parentProjectProcedureSerial": ""
+        "ppSerial": "-1"
+        "processNo": "OP20"
+        "processProcedureId": ""
+        "projectSerial": ""
+        "sort": "10"
+      - "level": 1
+        "parentProjectProcedureSerial": ""
+        "ppSerial": "-1"
+        "processNo": "OP30"
+        "processProcedureId": ""
+        "projectSerial": ""
+        "sort": "10"

@@ -220,6 +220,7 @@ class TestCase1:
                                                                 second_pf_serial)
             pytest.assume(res, "保存功能关联失败")
 
+    @allure.title("导出DFMEA报告")
     def test_18(self):
         # ppt_serial = "6e522b78c6804a0b836f9ddc20bd62fc"
         exportReport().del_last_report()

@@ -37,7 +37,7 @@ class TestCase1:
     added_product_nodes = []  # 产品节点信息
     added_function_nodes = []  # 功能节点信息
     added_feature_nodes = []  # 特性节点信息
-    applicableObject = "13e553bc150b4ca58e174ce67dd158cb"  # 适用对象
+    applicableObject = "13e553bc150b4ca58e174ce67dd158cb"  # 适用对象(D)
 
     def setup_class(self):
         self.test_data = parse_yaml("../data/data_04.yaml")

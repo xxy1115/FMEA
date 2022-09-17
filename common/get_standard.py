@@ -4,17 +4,17 @@ import json
 from common.base import BaseApi
 
 
-class getMeasureD(BaseApi):
-    def get_measure_d(self, token, product_type, search_key=""):
+class getStandard(BaseApi):
+    def get_standard(self, token, product_type, search_key=""):
         """
-        获取探测措施信息
+        查询技术标准
         :param token:
         :return:
         """
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/detMeasure/list",
+            "url": "/knowledge_end/technicalStandard/list",
             "json": {
                 "endTime": "",
                 "experienceType": "",
@@ -24,7 +24,7 @@ class getMeasureD(BaseApi):
                 "functionTypes": [],
                 "isUpProduct": "",
                 "measureClassifyList": [],
-                "pageSize": 10,
+                "pageSize": 15,
                 "pfSerial": "",
                 "pifSerial": "",
                 "pptSerial": "",
@@ -33,7 +33,7 @@ class getMeasureD(BaseApi):
                 "productId": "",
                 "productIds": [],
                 "productTypeList": product_type,
-                "productTypes": product_type,
+                "productTypes": [],
                 "projectSerial": "",
                 "searchId": "",
                 "searchKey": search_key,
@@ -49,5 +49,5 @@ class getMeasureD(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        product = res.json()["data"]["items"]
-        return product
+        standard = res.json()["data"]["items"]
+        return standard
