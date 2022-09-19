@@ -16,8 +16,8 @@ from utils.yamlControl import parse_yaml
 
 
 class TestCase1:
-    token = "fbf46ef48d3d44f5bf7693804a64d1e5"
-    user_id = 1681
+    token = ""
+    user_id = 0
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -32,7 +32,7 @@ class TestCase1:
         pass
 
     @allure.title("登录")
-    def atest_1(self):
+    def test_1(self):
         res = Login().login(self.test_data["user"]["user01"])
         pytest.assume(res, "登录失败")
         TestCase1.token = res["token"]
