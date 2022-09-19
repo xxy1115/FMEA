@@ -99,7 +99,7 @@ class TestCase1:
     def test_7(self):
         project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
         ppt_serial = TestCase1.dfmea_info["productTree"]["serialNum"]
-        bom_serial = TestCase1.bom_list[0]["serialNum"]
+        bom_serial = TestCase1.bom_list[3]["serialNum"]
         flag = BOM().import_bom(TestCase1.token, project_serial, bom_serial, ppt_serial)
         pytest.assume(flag, "导入BOM失败")
 
