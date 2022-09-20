@@ -103,7 +103,8 @@ class BOM(BaseApi):
             "files": {"excelFile": ("bom.xls", open("bom.xls", "rb"), "application/vnd.ms-excel")},
             "data": {
                 "projectSerial": project_serial,
-                "pptSerial": ""
+                "pptSerial": "",
+                "programId": ""
             }
         }
         res = self.send(data)
