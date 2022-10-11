@@ -2,6 +2,7 @@
 import json
 
 from common.base import BaseApi
+from common.get_max_num import getMaxNum
 
 
 class addDFMEA(BaseApi):
@@ -14,7 +15,8 @@ class addDFMEA(BaseApi):
         # cur_time = time.strftime("%Y%m%d%H%M%S", time.localtime())
         self.token = token
         platform, customer, secrecyGrade, module = dicts
-        project_num = self.get_max_num()
+        # project_num = self.get_max_num()
+        project_num = getMaxNum().get_max_num(token, "project", "project_num", "DF")
         data["api"]["json"]["owner"] = user_id  # 当前用户ID
         data["api"]["json"]["ownerName"] = user_name  # 当前用户名
         data["api"]["json"]["platform"] = platform[0]["code"]  # 平台
@@ -70,21 +72,21 @@ class addDFMEA(BaseApi):
         column_list = json.loads(res.json()["data"])["items"]
         return column_list
 
-    def get_max_num(self):
-        """
-        获取DFMEA编号
-        :return: DFMEA编号
-        """
-        data = {
-            "method": "get",
-            "url": "/fmea/genNum/getMaxNum",
-            "params": {
-                "searchTable": "project",
-                "searchColumn": "project_num",
-                "searchInitialLetter": "DF",
-                "defaultNumTail": 1803090001
-            }
-        }
-        res = self.send(data)
-        max_num = json.loads(res.json()["data"])["maxNum"]
-        return max_num
+    # def get_max_num(self):
+    #     """
+    #     获取DFMEA编号
+    #     :return: DFMEA编号
+    #     """
+    #     data = {
+    #         "method": "get",
+    #         "url": "/fmea/genNum/getMaxNum",
+    #         "params": {
+    #             "searchTable": "project",
+    #             "searchColumn": "project_num",
+    #             "searchInitialLetter": "DF",
+    #             "defaultNumTail": 1803090001
+    #         }
+    #     }
+    #     res = self.send(data)
+    #     max_num = json.loads(res.json()["data"])["maxNum"]
+    #     return max_num

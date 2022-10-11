@@ -24,7 +24,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 0
+    user_id = 1681
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -68,10 +68,8 @@ class TestCase1:
     @allure.title("新建DFMEA")
     def test_4(self):
         with allure.step("step1:获取产品信息"):
-            product_num = self.test_data["project"]["api"]["json"]["productNum"]
-            res = getProduct().get_product(TestCase1.token, TestCase1.product_type, product_num)
+            res = getProduct().get_product(TestCase1.token, TestCase1.product_type)
             pytest.assume(res, "产品信息接口失败")
-            pytest.assume(res[0]["productNum"] == product_num, "产品查询结果错误")
             product = res[0]
         with allure.step("step2:选择项目"):
             res = programList().program_list(TestCase1.token, TestCase1.product_type)
@@ -107,8 +105,7 @@ class TestCase1:
     @allure.title("添加根节点的功能")
     def test_6(self):
         ppt_serial = TestCase1.dfmea_info["productTree"]["serialNum"]  # 获取根节点serialNum
-        res = functionNodesUpdate().add_function_nodes(self.test_data["add_function1_nodes"], TestCase1.token,
-                                                       TestCase1.product_type, ppt_serial)
+        res = functionNodesUpdate().add_function_nodes(TestCase1.token, TestCase1.product_type, ppt_serial, 1)
         pytest.assume(res, "添加功能节点失败")
         TestCase1.added_function1_nodes = res
 
@@ -116,8 +113,7 @@ class TestCase1:
     def test_7(self):
         ppt_serial = TestCase1.added_function1_nodes[0]["pptSerial"]  # 父级产品节点
         pf_serial = TestCase1.added_function1_nodes[0]["serialNum"]  # 父级功能节点
-        res = invalidNodesUpdate().add_invalid_nodes(self.test_data["add_invalid1_nodes"], TestCase1.token,
-                                                     TestCase1.product_type, ppt_serial, pf_serial)
+        res = invalidNodesUpdate().add_invalid_nodes(TestCase1.token, TestCase1.product_type, ppt_serial, pf_serial, 1)
         pytest.assume(res, "添加失效节点失败")
         TestCase1.added_invalid1_nodes = res
 
@@ -125,17 +121,15 @@ class TestCase1:
     def test_8(self):
         project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
         product_serial = TestCase1.dfmea_info["productTree"]["serialNum"]
-        res = productNodesUpdate().add_product_nodes(self.test_data["add_product2_nodes"], TestCase1.token,
-                                                     TestCase1.product_type,
-                                                     project_serial, product_serial)
+        res = productNodesUpdate().add_product_nodes(TestCase1.token, TestCase1.product_type, project_serial,
+                                                     product_serial, 1)
         pytest.assume(res, "添加产品节点失败")
         TestCase1.added_product2_nodes = res
 
     @allure.title("添加二级产品节点的功能")
     def test_9(self):
         ppt_serial = TestCase1.added_product2_nodes[0]["serialNum"]  # 获取第二个产品节点serialNum
-        res = functionNodesUpdate().add_function_nodes(self.test_data["add_function2_nodes"], TestCase1.token,
-                                                       TestCase1.product_type, ppt_serial)
+        res = functionNodesUpdate().add_function_nodes(TestCase1.token, TestCase1.product_type, ppt_serial, 1)
         pytest.assume(res, "添加功能节点失败")
         TestCase1.added_function2_nodes = res
 
@@ -143,8 +137,7 @@ class TestCase1:
     def test_10(self):
         ppt_serial = TestCase1.added_function2_nodes[0]["pptSerial"]  # 父级产品节点
         pf_serial = TestCase1.added_function2_nodes[0]["serialNum"]  # 父级功能节点
-        res = invalidNodesUpdate().add_invalid_nodes(self.test_data["add_invalid2_nodes"], TestCase1.token,
-                                                     TestCase1.product_type, ppt_serial, pf_serial)
+        res = invalidNodesUpdate().add_invalid_nodes(TestCase1.token, TestCase1.product_type, ppt_serial, pf_serial, 1)
         pytest.assume(res, "添加失效节点失败")
         TestCase1.added_invalid2_nodes = res
 
@@ -152,17 +145,15 @@ class TestCase1:
     def test_11(self):
         project_serial = TestCase1.added_product2_nodes[0]["projectSerial"]
         parent_serial = TestCase1.added_product2_nodes[0]["serialNum"]
-        res = productNodesUpdate().add_product_nodes(self.test_data["add_product3_nodes"], TestCase1.token,
-                                                     TestCase1.product_type,
-                                                     project_serial, parent_serial)
+        res = productNodesUpdate().add_product_nodes(TestCase1.token, TestCase1.product_type, project_serial,
+                                                     parent_serial, 1)
         pytest.assume(res, "添加产品节点失败")
         TestCase1.added_product3_nodes = res
 
     @allure.title("添加三级产品节点的功能")
     def test_12(self):
         ppt_serial = TestCase1.added_product3_nodes[0]["serialNum"]  # 获取第三个产品节点serialNum
-        res = functionNodesUpdate().add_function_nodes(self.test_data["add_function3_nodes"], TestCase1.token,
-                                                       TestCase1.product_type, ppt_serial)
+        res = functionNodesUpdate().add_function_nodes(TestCase1.token, TestCase1.product_type, ppt_serial, 1)
         pytest.assume(res, "添加功能节点失败")
         TestCase1.added_function3_nodes = res
 
@@ -170,8 +161,7 @@ class TestCase1:
     def test_13(self):
         ppt_serial = TestCase1.added_function3_nodes[0]["pptSerial"]  # 父级产品节点
         pf_serial = TestCase1.added_function3_nodes[0]["serialNum"]  # 父级功能节点
-        res = invalidNodesUpdate().add_invalid_nodes(self.test_data["add_invalid3_nodes"], TestCase1.token,
-                                                     TestCase1.product_type, ppt_serial, pf_serial)
+        res = invalidNodesUpdate().add_invalid_nodes(TestCase1.token, TestCase1.product_type, ppt_serial, pf_serial, 1)
         pytest.assume(res, "添加失效节点失败")
         TestCase1.added_invalid3_nodes = res
 
@@ -226,14 +216,18 @@ class TestCase1:
         exportReport().del_last_report()
         ppt_serial = TestCase1.added_product2_nodes[0]["serialNum"]  # 获取第二个产品节点serialNum
         with allure.step("step1:导出DFMEA报告--pdf/中文/标准版/单行"):
-            exportReport().export_report(TestCase1.token, ppt_serial, "pdf", 1, "0_1_2_3_4_5_6_7", 1, 2,"dfmea_report1.pdf")
+            exportReport().export_report(TestCase1.token, ppt_serial, "pdf", 1, "0_1_2_3_4_5_6_7", 1, 2,
+                                         "dfmea_report1.pdf")
             pytest.assume(os.path.exists("dfmea_report/dfmea_report1.pdf"), "导出失败")
         with allure.step("step2:导出DFMEA报告--excel/中文/标准版/单行"):
-            exportReport().export_report(TestCase1.token, ppt_serial, "excel", 1, "0_1_2_3_4_5_6_7", 1, 2,"dfmea_report2.xls")
+            exportReport().export_report(TestCase1.token, ppt_serial, "excel", 1, "0_1_2_3_4_5_6_7", 1, 2,
+                                         "dfmea_report2.xls")
             pytest.assume(os.path.exists("dfmea_report/dfmea_report2.xls"), "导出失败")
         with allure.step("step3:导出DFMEA报告--pdf/中英文/新版/合并"):
-            exportReport().export_report(TestCase1.token, ppt_serial, "pdf", 1, "0_1_2_3_4_5_6_7", 3, 1,"dfmea_report3.pdf")
+            exportReport().export_report(TestCase1.token, ppt_serial, "pdf", 1, "0_1_2_3_4_5_6_7", 3, 1,
+                                         "dfmea_report3.pdf")
             pytest.assume(os.path.exists("dfmea_report/dfmea_report3.pdf"), "导出失败")
         with allure.step("step4:导出DFMEA报告--excel/中英文/新版/合并"):
-            exportReport().export_report(TestCase1.token, ppt_serial, "excel", 1, "0_1_2_3_4_5_6_7", 3, 1,"dfmea_report4.xls")
+            exportReport().export_report(TestCase1.token, ppt_serial, "excel", 1, "0_1_2_3_4_5_6_7", 3, 1,
+                                         "dfmea_report4.xls")
             pytest.assume(os.path.exists("dfmea_report/dfmea_report4.xls"), "导出失败")

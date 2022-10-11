@@ -29,7 +29,7 @@ from libs.knowledge.system_response import systemResponse
 
 class TestCase1:
     token = ""
-    user_id = 0
+    user_id = 1681
     token2 = ""
     user_id2 = 0
     dicts = {}

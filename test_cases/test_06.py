@@ -4,7 +4,6 @@ import allure
 
 from common.get_product import getProduct
 from common.login import Login
-from libs.dfmea.bom import BOM
 from libs.dfmea.dfmea_task import DfmeaTask
 from libs.dfmea.add_dfmea import addDFMEA
 from common.get_dict import getDict
@@ -17,7 +16,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 0
+    user_id = 1681
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -54,10 +53,8 @@ class TestCase1:
     @allure.title("新建DFMEA")
     def test_4(self):
         with allure.step("step1:获取产品信息"):
-            product_num = self.test_data["project"]["api"]["json"]["productNum"]
-            res = getProduct().get_product(TestCase1.token, TestCase1.product_type, product_num)
+            res = getProduct().get_product(TestCase1.token, TestCase1.product_type)
             pytest.assume(res, "产品信息接口失败")
-            pytest.assume(res[0]["productNum"] == product_num, "产品查询结果错误")
             product = res[0]
         with allure.step("step2:选择项目"):
             res = programList().program_list(TestCase1.token, TestCase1.product_type)
@@ -85,9 +82,8 @@ class TestCase1:
     def test_5(self):
         project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
         product_serial = TestCase1.dfmea_info["productTree"]["serialNum"]
-        res = productNodesUpdate().add_product_nodes(self.test_data["add_product_nodes"], TestCase1.token,
-                                                     TestCase1.product_type,
-                                                     project_serial, product_serial)
+        res = productNodesUpdate().add_product_nodes(TestCase1.token, TestCase1.product_type, project_serial,
+                                                     product_serial, 3)
         pytest.assume(res, "添加产品节点失败")
         TestCase1.added_product_nodes = res
 

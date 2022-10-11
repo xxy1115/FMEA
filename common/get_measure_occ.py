@@ -16,6 +16,9 @@ class getMeasureP(BaseApi):
             "method": "post",
             "url": "/knowledge_end/occMeasure/list",
             "json": {
+                "applicableObject": "D",
+                "customers": [],
+                "depNames": "",
                 "endTime": "",
                 "experienceType": "",
                 "fieldKey": "",

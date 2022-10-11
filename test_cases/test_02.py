@@ -21,7 +21,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 0
+    user_id = "1681"
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -65,10 +65,8 @@ class TestCase1:
     @allure.title("新建DFMEA")
     def test_4(self):
         with allure.step("step1:获取产品信息"):
-            product_num = self.test_data["project"]["api"]["json"]["productNum"]
-            res = getProduct().get_product(TestCase1.token, TestCase1.product_type, product_num)
+            res = getProduct().get_product(TestCase1.token, TestCase1.product_type)
             pytest.assume(res, "产品信息接口失败")
-            pytest.assume(res[0]["productNum"] == product_num, "产品查询结果错误")
             product = res[0]
         with allure.step("step2:选择项目"):
             res = programList().program_list(TestCase1.token, TestCase1.product_type)
@@ -87,7 +85,7 @@ class TestCase1:
             project = TestCase1.dfmea_info["project"]
             role_type = TestCase1.user_info["role"][0]["roleType"]
             flag, task_num = DfmeaTask().dfmea_task(TestCase1.token, TestCase1.user_id,
-                                                      project, role_type)
+                                                    project, role_type)
             pytest.assume(flag, "创建DFMEA任务失败")
             TestCase1.project_task_num = task_num  # 获取任务编号DFMEA新建任务使用
             print(task_num)
@@ -105,18 +103,15 @@ class TestCase1:
     def test_6(self):
         project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
         product_serial = TestCase1.dfmea_info["productTree"]["serialNum"]
-        res = productNodesUpdate().add_product_nodes(self.test_data["add_product_nodes"], TestCase1.token,
-                                                     TestCase1.product_type,
-                                                     project_serial, product_serial)
+        res = productNodesUpdate().add_product_nodes(TestCase1.token, TestCase1.product_type, project_serial,
+                                                     product_serial, 3)
         pytest.assume(res, "添加产品节点失败")
         TestCase1.added_product_nodes = res
 
     @allure.title("结构树编辑产品节点")
     def test_7(self):
         serial_num = TestCase1.added_product_nodes[0]["serialNum"]  # 编辑第一个产品节点
-        res = productNodesUpdate().edit_product_nodes(self.test_data["edit_product_nodes"], TestCase1.token,
-                                                      TestCase1.product_type,
-                                                      serial_num)
+        res = productNodesUpdate().edit_product_nodes(TestCase1.token, TestCase1.product_type, serial_num)
         pytest.assume(res == 1, "编辑产品节点失败")
 
     @allure.title("结构树删除产品节点")
@@ -128,8 +123,7 @@ class TestCase1:
     @allure.title("结构树添加功能节点")
     def test_9(self):
         ppt_serial = TestCase1.added_product_nodes[2]["serialNum"]  # 在第三个产品节点添加功能
-        res = functionNodesUpdate().add_function_nodes(self.test_data["add_function_nodes"], TestCase1.token,
-                                                       TestCase1.product_type, ppt_serial)
+        res = functionNodesUpdate().add_function_nodes(TestCase1.token, TestCase1.product_type, ppt_serial, 3)
         pytest.assume(res, "添加功能节点失败")
         TestCase1.added_function_nodes = res
 
@@ -137,8 +131,8 @@ class TestCase1:
     def test_10(self):
         project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
         serial_num = TestCase1.added_function_nodes[0]["serialNum"]  # 编辑第一个功能节点
-        res = functionNodesUpdate().edit_function_nodes(self.test_data["edit_function_nodes"], TestCase1.token,
-                                                        TestCase1.product_type, project_serial, serial_num)
+        res = functionNodesUpdate().edit_function_nodes(TestCase1.token, TestCase1.product_type, project_serial,
+                                                        serial_num)
         pytest.assume(res == 1, "编辑功能节点失败")
 
     @allure.title("结构树删除功能节点")
@@ -152,16 +146,14 @@ class TestCase1:
     @allure.title("结构树添加特性节点")
     def test_12(self):
         ppt_serial = TestCase1.added_product_nodes[2]["serialNum"]  # 在第三个产品节点添加特性
-        res = featureNodesUpdate().add_feature_nodes(self.test_data["add_feature_nodes"], TestCase1.token,
-                                                     TestCase1.product_type, ppt_serial)
+        res = featureNodesUpdate().add_feature_nodes(TestCase1.token, TestCase1.product_type, ppt_serial, 3)
         pytest.assume(res, "添加特性节点失败")
         TestCase1.added_feature_nodes = res
 
     @allure.title("结构树编辑特性节点")
     def test_13(self):
         serial_num = TestCase1.added_feature_nodes[0]["serialNum"]  # 编辑第一个特性节点
-        res = featureNodesUpdate().edit_feature_nodes(self.test_data["edit_feature_nodes"], TestCase1.token,
-                                                        TestCase1.product_type, serial_num)
+        res = featureNodesUpdate().edit_feature_nodes(TestCase1.token, TestCase1.product_type, serial_num)
         pytest.assume(res, "编辑特性节点失败")
 
     @allure.title("结构树删除特性节点")
@@ -175,8 +167,7 @@ class TestCase1:
         # 在第三个功能节点添加失效
         ppt_serial = TestCase1.added_function_nodes[2]["pptSerial"]  # 父级产品节点
         pf_serial = TestCase1.added_function_nodes[2]["serialNum"]  # 父级功能节点
-        res = invalidNodesUpdate().add_invalid_nodes(self.test_data["add_invalid_nodes"], TestCase1.token,
-                                                     TestCase1.product_type, ppt_serial, pf_serial)
+        res = invalidNodesUpdate().add_invalid_nodes(TestCase1.token, TestCase1.product_type, ppt_serial, pf_serial, 3)
         pytest.assume(res, "添加失效节点失败")
         TestCase1.added_invalid_nodes = res
 
@@ -184,8 +175,7 @@ class TestCase1:
     def test_16(self):
         # 编辑第一个失效节点
         serial_num = TestCase1.added_invalid_nodes[0]["serialNum"]  # 获取节点serialNum
-        res = invalidNodesUpdate().edit_invalid_nodes(self.test_data["edit_invalid_nodes"], TestCase1.token,
-                                                      TestCase1.product_type, serial_num)
+        res = invalidNodesUpdate().edit_invalid_nodes(TestCase1.token, TestCase1.product_type, serial_num)
         pytest.assume(res == 1, "编辑失效节点失败")
 
     @allure.title("结构树删除失效节点")
@@ -202,9 +192,9 @@ class TestCase1:
     def test_18(self):
         # 在第三个失效节点添加失效原因
         node_data = TestCase1.added_invalid_nodes[2]  # 获取第三个失效节点
-        project_invalids, project_invalid_nets, save_pf_relation = reasonNodesUpdate().add_reason_nodes(
-            self.test_data["add_reason_nodes"], TestCase1.token,
-            TestCase1.product_type, node_data)
+        project_invalids, project_invalid_nets, save_pf_relation = reasonNodesUpdate().add_reason_nodes(TestCase1.token,
+                                                                                                        TestCase1.product_type,
+                                                                                                        node_data, 3)
         pytest.assume(project_invalids, "添加失效原因失败")
         pytest.assume(project_invalid_nets, "保存失效网失败")
         pytest.assume(save_pf_relation, "保存功能网失败")
@@ -215,8 +205,7 @@ class TestCase1:
     def test_19(self):
         # 编辑第一个失效原因节点
         serial_num = TestCase1.save_invalid_nets[0]["serialNum"]  # 获取节点serialNum
-        res = reasonNodesUpdate().edit_reason_nodes(self.test_data["edit_reason_nodes"], TestCase1.token,
-                                                    TestCase1.product_type, serial_num)
+        res = reasonNodesUpdate().edit_reason_nodes(TestCase1.token, TestCase1.product_type, serial_num)
         pytest.assume(res, "编辑失效原因失败")
         TestCase1.update_invalid_nets = res
 
@@ -234,9 +223,10 @@ class TestCase1:
         # 在第三个失效原因节点添加预防措施
         pid_serial = TestCase1.save_invalid_nets[2]["serialNum"]  # 获取失效原因serialNum
         pif_serial = TestCase1.save_invalid_nets[2]["pifSerial"]  # 获取失效原因界面功能
-        flag, change_reason_list, project_measures = measureNodesUpdate().add_measure_nodes(
-            self.test_data["add_p_nodes"], TestCase1.token,
-            TestCase1.product_type, pid_serial, pif_serial)
+        flag, change_reason_list, project_measures = measureNodesUpdate().add_measure_nodes(TestCase1.token,
+                                                                                            TestCase1.product_type,
+                                                                                            pid_serial, pif_serial, 0,
+                                                                                            2)
         pytest.assume(flag, "添加预防措施失败")
         TestCase1.change_reason_list = change_reason_list
         TestCase1.added_measure_p_nodes = project_measures
@@ -248,9 +238,8 @@ class TestCase1:
         ppt_serial = TestCase1.added_product_nodes[2]["serialNum"]  # 获取上级产品节点
         serial_num = TestCase1.added_measure_p_nodes[0]["serialNum"]
         pid_serial = TestCase1.added_measure_p_nodes[0]["pidSerial"]
-        res = measureNodesUpdate().edit_measure_nodes(self.test_data["edit_p_nodes"], TestCase1.token,
-                                                      TestCase1.product_type, pid_serial,
-                                                      serial_num, project_serial, ppt_serial)
+        res = measureNodesUpdate().edit_measure_nodes(TestCase1.token, TestCase1.product_type, pid_serial, serial_num,
+                                                      project_serial, ppt_serial, 0)
         pytest.assume(res, "接口响应失败")
         pytest.assume(res["flag"] == 1, "编辑预防措施失败")
 
@@ -272,9 +261,10 @@ class TestCase1:
         # 在第三个失效原因节点添加探测措施
         pid_serial = TestCase1.save_invalid_nets[2]["serialNum"]  # 获取失效原因serialNum
         pif_serial = TestCase1.save_invalid_nets[2]["pifSerial"]  # 获取失效原因界面功能
-        flag, change_reason_list, project_measures = measureNodesUpdate().add_measure_nodes(
-            self.test_data["add_d_nodes"], TestCase1.token,
-            TestCase1.product_type, pid_serial, pif_serial)
+        flag, change_reason_list, project_measures = measureNodesUpdate().add_measure_nodes(TestCase1.token,
+                                                                                            TestCase1.product_type,
+                                                                                            pid_serial, pif_serial, 1,
+                                                                                            2)
         pytest.assume(flag, "添加预防措施失败")
         TestCase1.change_reason_list = change_reason_list
         TestCase1.added_measure_d_nodes = project_measures
@@ -286,9 +276,8 @@ class TestCase1:
         ppt_serial = TestCase1.added_product_nodes[2]["serialNum"]  # 获取上级产品节点
         serial_num = TestCase1.added_measure_d_nodes[0]["serialNum"]
         pid_serial = TestCase1.added_measure_d_nodes[0]["pidSerial"]
-        res = measureNodesUpdate().edit_measure_nodes(self.test_data["edit_d_nodes"], TestCase1.token,
-                                                      TestCase1.product_type, pid_serial,
-                                                      serial_num, project_serial, ppt_serial)
+        res = measureNodesUpdate().edit_measure_nodes(TestCase1.token, TestCase1.product_type, pid_serial, serial_num,
+                                                      project_serial, ppt_serial, 1)
         pytest.assume(res, "接口响应失败")
         pytest.assume(res["flag"] == 1, "编辑探测措施失败")
 

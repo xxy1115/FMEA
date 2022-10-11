@@ -16,6 +16,9 @@ class getMeasureD(BaseApi):
             "method": "post",
             "url": "/knowledge_end/detMeasure/list",
             "json": {
+                "applicableObject": "D",
+                "customers": [],
+                "depNames": "",
                 "endTime": "",
                 "experienceType": "",
                 "fieldKey": "",

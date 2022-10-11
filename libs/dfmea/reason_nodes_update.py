@@ -6,16 +6,30 @@ from common.get_invalid import getInvalid
 
 
 class reasonNodesUpdate(BaseApi):
-    def add_reason_nodes(self, data, token, product_type, node_data):
+    def add_reason_nodes(self, token, product_type, node_data, num):
         self.token = token
-        for item in data["api"]["json"]:
-            invalid_name = item["invalidmodeName"]
-            res = getInvalid().get_invalid(token, product_type, invalid_name)  # 查询失效名称获取失效信息
-            item["enInvalidModeName"] = res[0]["enInvalidMode"]
-            item["invalidmodeSerial"] = res[0]["serialNum"]  # 获取要添加的失效serialNum
-            item["occurrence"] = res[0]["occurrence"]
-            item["severity"] = node_data["severity"]  # 严重度作为后果，取上级失效的严重度
-        res = self.send(data["api"])
+        res = getInvalid().get_invalid(token, product_type)
+        data = {
+            "method": "post",
+            "url": "/fmea/projectInvalid/saveOrUpdate",
+            "json": []
+        }
+        for i in range(num):
+            data["json"].append(
+                {"edituser": i + 1, "enInvalidModeName": res[i]["enInvalidMode"],
+                 "invalidmodeName": res[i]["invalidmode"],
+                 "invalidmodeSerial": res[i]["serialNum"],
+                 "occurrence": res[i]["occurrence"], "programId": "", "severity": node_data["severity"],
+                 })  # 严重度作为后果，取上级失效的严重度
+        res = self.send(data)
+        # for item in data["api"]["json"]:
+        #     invalid_name = item["invalidmodeName"]
+        #     res = getInvalid().get_invalid(token, product_type, invalid_name)  # 查询失效名称获取失效信息
+        #     item["enInvalidModeName"] = res[0]["enInvalidMode"]
+        #     item["invalidmodeSerial"] = res[0]["serialNum"]  # 获取要添加的失效serialNum
+        #     item["occurrence"] = res[0]["occurrence"]
+        #     item["severity"] = node_data["severity"]  # 严重度作为后果，取上级失效的严重度
+        # res = self.send(data["api"])
         if res.status_code != 200:
             return False
         result = json.loads(res.json()["data"])
@@ -61,15 +75,29 @@ class reasonNodesUpdate(BaseApi):
         result = json.loads(res.json()["data"])
         return result["projectInvalidNets"]
 
-    def edit_reason_nodes(self, data, token, product_type, serial_num):
+    def edit_reason_nodes(self, token, product_type, serial_num):
         self.token = token
-        invalid_name = data["api"]["json"]["invalidmodeName"]
-        res = getInvalid().get_invalid(token, product_type, invalid_name)  # 查询失效名称获取功能信息
-        data["api"]["json"]["enInvalidModeName"] = res[0]["enInvalidMode"]
-        data["api"]["json"]["invalidmodeSerial"] = res[0]["serialNum"]
-        data["api"]["json"]["occurrence"] = res[0]["occurrence"]
-        data["api"]["json"]["severity"] = res[0]["severity"]
-        res = self.send(data["api"])
+        res = getInvalid().get_invalid(token, product_type)
+        product = res[3]
+        data = {
+            "method": "post",
+            "url": "/fmea/projectInvalid/save",
+            "json": {
+                "enInvalidModeName": product["enInvalidMode"],
+                "invalidmodeName": product["invalidmode"],
+                "invalidmodeSerial": product["serialNum"],
+                "occurrence": product["occurrence"],
+                "severity": product["severity"]
+            }
+        }
+        res = self.send(data)
+        # invalid_name = data["api"]["json"]["invalidmodeName"]
+        # res = getInvalid().get_invalid(token, product_type, invalid_name)  # 查询失效名称获取功能信息
+        # data["api"]["json"]["enInvalidModeName"] = res[0]["enInvalidMode"]
+        # data["api"]["json"]["invalidmodeSerial"] = res[0]["serialNum"]
+        # data["api"]["json"]["occurrence"] = res[0]["occurrence"]
+        # data["api"]["json"]["severity"] = res[0]["severity"]
+        # res = self.send(data["api"])
         if res.status_code != 200:
             return False
         edit_res = json.loads(res.json()["data"])

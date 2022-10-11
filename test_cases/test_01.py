@@ -54,15 +54,13 @@ class TestCase1:
     def test_4(self):
         product_type = TestCase1.user_info["productTypePermissionList"]
         with allure.step("step1:获取产品信息"):
-            product_num = self.test_data["program"]["api"]["json"]["productNum"]
-            res = getProduct().get_product(TestCase1.token, product_type, product_num)
+            res = getProduct().get_product(TestCase1.token, product_type)
             pytest.assume(res, "产品信息接口失败")
-            pytest.assume(res[0]["productNum"] == product_num, "产品查询结果错误")
             product = res[0]
         with allure.step("step2:新建项目"):
-            res = addProgram().add_program(self.test_data["program"], product, TestCase1.token,
-                                           TestCase1.user_id,
-                                           TestCase1.dicts["010"], TestCase1.dicts["001"])  # 010-车型,001-平台
+            res = addProgram().add_program(TestCase1.token, TestCase1.user_id, self.test_data["user"]["user01"][0],
+                                           product, TestCase1.dicts["010"],
+                                           TestCase1.dicts["001"])  # 010-车型,001-平台
             pytest.assume(res, "新建项目失败")
             TestCase1.program_serial, TestCase1.program_num = res  # 项目序列号、项目编号存入类变量
         with allure.step("step3:项目列表查询"):
@@ -77,18 +75,14 @@ class TestCase1:
     def test_5(self):
         product_type = TestCase1.user_info["productTypePermissionList"]
         with allure.step("step1:获取产品信息"):
-            product_num = self.test_data["project"]["api"]["json"]["productNum"]
-            res = getProduct().get_product(TestCase1.token, product_type, product_num)
+            res = getProduct().get_product(TestCase1.token, product_type)
             pytest.assume(res, "产品信息接口失败")
-            pytest.assume(res[0]["productNum"] == product_num, "产品查询结果错误")
             product = res[0]
         with allure.step("step2:选择项目"):
-            res = programList().program_list(TestCase1.token, product_type,
-                                             TestCase1.program_num)
+            res = programList().program_list(TestCase1.token, product_type)
             pytest.assume(res, "项目列表查询错误")
             pytest.assume(len(res) > 0, "项目列表查询结果为空")
             program_obj = res[0]
-            pytest.assume(program_obj["programNum"] == TestCase1.program_num, "项目列表查询结果错误")
         with allure.step("step3:新建DFMEA"):
             res = addDFMEA().add_dfmea(self.test_data["project"], product, program_obj, TestCase1.token,
                                        TestCase1.user_id,
@@ -101,12 +95,12 @@ class TestCase1:
             project = TestCase1.dfmea_info["project"]
             role_type = TestCase1.user_info["role"][0]["roleType"]
             flag, task_num = DfmeaTask().dfmea_task(TestCase1.token, TestCase1.user_id,
-                                                      project, role_type)
+                                                    project, role_type)
             pytest.assume(flag, "创建DFMEA任务失败")
             TestCase1.project_task_num = task_num  # 获取任务编号DFMEA新建任务使用
             print(task_num)
         with allure.step("step5:我的FMEA列表查询"):
-            res = DfmeaList().dfmea_list(self.test_data["project_list"], TestCase1.token, TestCase1.user_id, role_type,
+            res = DfmeaList().dfmea_list(TestCase1.token, TestCase1.user_id, role_type,
                                          project["projectNum"])
             pytest.assume(res, "项目列表查询错误")
             pytest.assume(res[0]["projectNum"] == project["projectNum"], "FMEA编号查询结果错误")

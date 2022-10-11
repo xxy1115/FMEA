@@ -4,7 +4,7 @@ import time
 
 from common.base import BaseApi
 from common.get_invalid import getInvalid
-from common.get_measure_p import getMeasureP
+from common.get_measure_occ import getMeasureP
 
 
 class Invalid(BaseApi):

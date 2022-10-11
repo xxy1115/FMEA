@@ -5,12 +5,23 @@ from common.base import BaseApi
 
 
 class DfmeaList(BaseApi):
-    def dfmea_list(self, data, token, use_id, user_role, search_key=""):
+    def dfmea_list(self, token, use_id, user_role, search_key=""):
         self.token = token
-        data["api"]["json"]["userId"] = use_id
-        data["api"]["json"]["userRole"] = user_role
-        data["api"]["json"]["searchKey"] = search_key
-        res = self.send(data["api"])
+        data = {
+            "method": "post",
+            "url": "/fmea/project/list",
+            "json": {
+                "from": 0,
+                "pageSize": 10,
+                "platform": "",
+                "projectSerialNum": "",
+                "searchKey": search_key,
+                "sortColumn": "",
+                "userId": use_id,
+                "userRole": user_role
+            }
+        }
+        res = self.send(data)
         if res.status_code != 200:
             return False
         res_data = json.loads(res.json()["data"])

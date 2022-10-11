@@ -9,6 +9,11 @@ from common.get_user_info import getUserInfo
 from libs.dfmea.dfmea_tree import DfmeaTree
 from libs.dfmea.pfmea_tree import PfmeaTree
 from libs.pfmea.add_pfmea import addPFMEA
+from libs.pfmea.element_fea_nodes_update import elementFeaNodesUpdate
+from libs.pfmea.element_fun_nodes_update import elementFunNodesUpdate
+from libs.pfmea.element_invalid_nodes_update import elementInvalidNodesUpdate
+from libs.pfmea.element_nodes_update import elementNodesUpdate
+from libs.pfmea.measure_p_nodes_update import measurePNodesUpdate
 from libs.pfmea.pfmea_task import PfmeaTask
 from libs.pfmea.procedure_nodes_update import procedureNodesUpdate
 from libs.program_list import programList
@@ -16,8 +21,8 @@ from utils.yamlControl import parse_yaml
 
 
 class TestCase1:
-    token = ""
-    user_id = 0
+    token = "e38c5f55dd1d4807a0ef763a13e186f8"
+    user_id = 1681
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -31,7 +36,7 @@ class TestCase1:
         pass
 
     @allure.title("登录")
-    def test_1(self):
+    def atest_1(self):
         res = Login().login(self.test_data["user"]["user01"])
         pytest.assume(res, "登录失败")
         TestCase1.token = res["token"]
@@ -101,32 +106,144 @@ class TestCase1:
         pytest.assume(res["flag"], "添加工序节点失败")
         TestCase1.added_procedures_nodes = res["pfmeaProjectProcedures"]
 
-    # @allure.title("结构树编辑产品节点")
-    # def test_7(self):
-    #     serial_num = TestCase1.added_product_nodes[0]["serialNum"]  # 编辑第一个产品节点
-    #     res = productNodesUpdate().edit_product_nodes(self.test_data["edit_product_nodes"], TestCase1.token,
-    #                                                   TestCase1.product_type,
-    #                                                   serial_num)
-    #     pytest.assume(res == 1, "编辑产品节点失败")
-    #
-    # @allure.title("结构树删除产品节点")
-    # def test_8(self):
-    #     serial_num = TestCase1.added_product_nodes[1]["serialNum"]  # 删除第二个产品节点
-    #     res = productNodesUpdate().del_product_nodes(TestCase1.token, serial_num)
-    #     pytest.assume(res["flag"] == "1", "删除产品节点失败")
-    #
-    # @allure.title("结构树添加功能节点")
-    # def test_9(self):
-    #     ppt_serial = TestCase1.added_product_nodes[2]["serialNum"]  # 在第三个产品节点添加功能
-    #     res = functionNodesUpdate().add_function_nodes(self.test_data["add_function_nodes"], TestCase1.token,
-    #                                                    TestCase1.product_type, ppt_serial)
-    #     pytest.assume(res, "添加功能节点失败")
-    #     TestCase1.added_function_nodes = res
-    #
-    # @allure.title("结构树编辑功能节点")
-    # def test_10(self):
-    #     project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
-    #     serial_num = TestCase1.added_function_nodes[0]["serialNum"]  # 编辑第一个功能节点
-    #     res = functionNodesUpdate().edit_function_nodes(self.test_data["edit_function_nodes"], TestCase1.token,
-    #                                                     TestCase1.product_type, project_serial, serial_num)
-    #     pytest.assume(res == 1, "编辑功能节点失败")
+    @allure.title("结构树编辑工序节点")
+    def test_7(self):
+        serial_num = TestCase1.added_procedures_nodes[0]["serialNum"]  # 编辑第一个工序节点
+        res = procedureNodesUpdate().edit_procedure_nodes(TestCase1.token, TestCase1.product_type, serial_num)
+        pytest.assume(res["flag"], "编辑工序节点失败")
+        res["pfmeaProjectProcedure"]
+
+    @allure.title("结构树删除工序节点")
+    def test_8(self):
+        serial_num = TestCase1.added_procedures_nodes[1]["serialNum"]  # 删除第二个工序节点
+        res = procedureNodesUpdate().del_procedure_nodes(TestCase1.token, serial_num)
+        pytest.assume(res["flag"], "删除工序节点失败")
+
+    @allure.title("结构树添加要素节点")
+    def test_9(self):
+        ppp_serial = TestCase1.added_procedures_nodes[2]["serialNum"]  # 在第三个工序节点添加要素
+        res = elementNodesUpdate().add_element_nodes(TestCase1.token, TestCase1.product_type, ppp_serial, 3)
+        pytest.assume(res["flag"], "添加要素节点失败")
+        TestCase1.added_element_nodes = res["pfmeaProjectElements"]
+
+    @allure.title("结构树编辑要素节点")
+    def test_10(self):
+        serial_num = TestCase1.added_element_nodes[0]["serialNum"]  # 编辑第一个要素节点
+        res = elementNodesUpdate().edit_element_nodes(TestCase1.token, TestCase1.product_type, serial_num)
+        pytest.assume(res["flag"], "编辑要素节点失败")
+
+    @allure.title("结构树删除要素节点")
+    def test_11(self):
+        serial_num = TestCase1.added_element_nodes[1]["serialNum"]  # 删除第二个要素节点
+        projectProcedureSerial = TestCase1.added_element_nodes[1]["projectProcedureSerial"]  # 删除第二个要素节点
+        res = elementNodesUpdate().del_element_nodes(TestCase1.token, serial_num, projectProcedureSerial)
+        pytest.assume(res["flag"], "删除要素节点失败")
+
+    @allure.title("结构树添加要素功能节点")
+    def test_12(self):
+        pe_serial = TestCase1.added_element_nodes[2]["serialNum"]  # 在第三个要素节点添加要素功能
+        res = elementFunNodesUpdate().add_element_fun_nodes(TestCase1.token, TestCase1.product_type, pe_serial, 3)
+        pytest.assume(res["flag"], "添加要素功能节点失败")
+        TestCase1.added_ef_nodes = res["pfmeaProjectElementFunctions"]
+
+    @allure.title("结构树编辑要素功能节点")
+    def test_13(self):
+        serial_num = TestCase1.added_ef_nodes[0]["serialNum"]  # 编辑第一个要素功能节点
+        res = elementFunNodesUpdate().edit_element_fun_nodes(TestCase1.token, TestCase1.product_type, serial_num)
+        pytest.assume(res["flag"], "编辑要素节点失败")
+
+    @allure.title("结构树删除要素功能节点")
+    def test_14(self):
+        serial_num = TestCase1.added_ef_nodes[1]["serialNum"]  # 删除第二个要素功能节点
+        res = elementFunNodesUpdate().del_element_fun_nodes(TestCase1.token, serial_num)
+        pytest.assume(res["flag"], "删除要素功能节点失败")
+
+    @allure.title("结构树添加要素失效节点")
+    def test_15(self):
+        ppp_serial = TestCase1.added_procedures_nodes[2]["serialNum"]
+        ef_serial = TestCase1.added_ef_nodes[2]["serialNum"]  # 在第三个要素功能节点添加要素失效
+        res = elementInvalidNodesUpdate().add_element_invalid_nodes(TestCase1.token, TestCase1.product_type, ppp_serial,
+                                                                    ef_serial, 3)
+        pytest.assume(res["flag"], "添加要素失效节点失败")
+        TestCase1.added_ei_nodes = res["pfmeaProjectInvalids"]
+
+    @allure.title("结构树编辑要素失效节点")
+    def test_16(self):
+        serial_num = TestCase1.added_ei_nodes[0]["serialNum"]  # 编辑第一个要素失效节点
+        res = elementInvalidNodesUpdate().edit_element_invalid_nodes(TestCase1.token, TestCase1.product_type,
+                                                                     serial_num)
+        pytest.assume(res["flag"], "编辑要素失效节点失败")
+
+    @allure.title("结构树删除要素失效节点")
+    def test_17(self):
+        ppp_serial = TestCase1.added_procedures_nodes[2]["serialNum"]
+        serial_num = TestCase1.added_ei_nodes[1]["serialNum"]  # 删除第二个要素失效节点
+        res = elementInvalidNodesUpdate().del_element_invalid_nodes(TestCase1.token, ppp_serial, serial_num)
+        pytest.assume(res["flag"], "删除要素失效节点失败")
+
+    @allure.title("结构树添加预防措施节点")
+    def test_18(self):
+        ei_serial = TestCase1.added_ei_nodes[2]["serialNum"]  # 在第三个要素失效节点添加预防措施
+        res = measurePNodesUpdate().add_measure_occ(TestCase1.token, TestCase1.product_type, ei_serial, 3)
+        pytest.assume(res["flag"], "添加预防措施节点失败")
+        TestCase1.added_measure_o_nodes = res["projectMeasures"]
+
+    @allure.title("结构树编辑预防措施节点")
+    def test_19(self):
+        serial_num = TestCase1.added_measure_o_nodes[0]["serialNum"]  # 编辑第一个预防措施节点
+        pidSerial = TestCase1.added_measure_o_nodes[0]["pidSerial"]
+        projectSerial = TestCase1.pfmea_info["pfmeaProject"]["serialNum"]
+        res = measurePNodesUpdate().edit_measure_occ(TestCase1.token, TestCase1.product_type, serial_num, pidSerial,
+                                                     projectSerial)
+        pytest.assume(res["flag"], "编辑预防措施节点失败")
+
+    @allure.title("结构树删除预防措施节点")
+    def test_20(self):
+        ppp_serial = TestCase1.added_procedures_nodes[2]["serialNum"]
+        serial_num = TestCase1.added_measure_o_nodes[1]["serialNum"]  # 删除第二个预防措施节点
+        invalidMode = TestCase1.added_ei_nodes[2]["invalidmodeName"]
+        res = measurePNodesUpdate().del_measure_occ(TestCase1.token, invalidMode, ppp_serial, serial_num)
+        pytest.assume(res["flag"], "删除预防措施节点失败")
+
+    @allure.title("结构树添加探测措施节点")
+    def test_21(self):
+        ei_serial = TestCase1.added_ei_nodes[2]["serialNum"]  # 在第三个要素失效节点添加预防措施
+        res = measurePNodesUpdate().add_measure_det(TestCase1.token, TestCase1.product_type, ei_serial, 3)
+        pytest.assume(res["flag"], "添加探测措施节点失败")
+        TestCase1.added_measure_d_nodes = res["projectMeasures"]
+
+    @allure.title("结构树编辑探测措施节点")
+    def test_22(self):
+        serial_num = TestCase1.added_measure_d_nodes[0]["serialNum"]  # 编辑第一个探测措施节点
+        pidSerial = TestCase1.added_measure_d_nodes[0]["pidSerial"]
+        projectSerial = TestCase1.pfmea_info["pfmeaProject"]["serialNum"]
+        res = measurePNodesUpdate().edit_measure_det(TestCase1.token, TestCase1.product_type, serial_num, pidSerial,
+                                                     projectSerial)
+        pytest.assume(res["flag"], "编辑探测措施节点失败")
+
+    @allure.title("结构树删除探测措施节点")
+    def test_23(self):
+        ppp_serial = TestCase1.added_procedures_nodes[2]["serialNum"]
+        serial_num = TestCase1.added_measure_d_nodes[1]["serialNum"]  # 删除第二个探测措施节点
+        invalidMode = TestCase1.added_ei_nodes[2]["invalidmodeName"]
+        res = measurePNodesUpdate().del_measure_det(TestCase1.token, invalidMode, ppp_serial, serial_num)
+        pytest.assume(res["flag"], "删除探测措施节点失败")
+
+    @allure.title("结构树添加过程特性节点")
+    def test_24(self):
+        pe_serial = TestCase1.added_element_nodes[2]["serialNum"]  # 在第三个要素节点添加过程特性
+        res = elementFeaNodesUpdate().add_element_fea_nodes(TestCase1.token, TestCase1.product_type, pe_serial, 3)
+        pytest.assume(res["flag"], "添加过程特性节点失败")
+        TestCase1.added_pc_nodes = res["pfmeaProjectFeatures"]
+
+    @allure.title("结构树编辑过程特性节点")
+    def test_25(self):
+        serial_num = TestCase1.added_pc_nodes[0]["serialNum"]  # 编辑第一个过程特性节点
+        res = elementFeaNodesUpdate().edit_element_fea_nodes(TestCase1.token, TestCase1.product_type, serial_num)
+        pytest.assume(res["flag"], "编辑过程特性失败")
+
+    @allure.title("结构树删除过程特性节点")
+    def test_26(self):
+        serial_num = TestCase1.added_pc_nodes[1]["serialNum"]  # 删除第二个过程特性节点
+        res = elementFeaNodesUpdate().del_element_fea_nodes(TestCase1.token, serial_num)
+        pytest.assume(res["flag"], "删除过程特性节点失败")

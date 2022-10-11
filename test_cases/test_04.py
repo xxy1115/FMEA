@@ -27,7 +27,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 0
+    user_id = 1681
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -68,10 +68,8 @@ class TestCase1:
     @allure.title("新建DFMEA")
     def test_4(self):
         with allure.step("step1:获取产品信息"):
-            product_num = self.test_data["project"]["api"]["json"]["productNum"]
-            res = getProduct().get_product(TestCase1.token, TestCase1.product_type, product_num)
+            res = getProduct().get_product(TestCase1.token, TestCase1.product_type)
             pytest.assume(res, "产品信息接口失败")
-            pytest.assume(res[0]["productNum"] == product_num, "产品查询结果错误")
             product = res[0]
         with allure.step("step2:选择项目"):
             res = programList().program_list(TestCase1.token, TestCase1.product_type)
@@ -89,8 +87,7 @@ class TestCase1:
         with allure.step("step4:创建任务"):
             project = TestCase1.dfmea_info["project"]
             role_type = TestCase1.user_info["role"][0]["roleType"]
-            flag, task_num = DfmeaTask().dfmea_task(TestCase1.token, TestCase1.user_id,
-                                                      project, role_type)
+            flag, task_num = DfmeaTask().dfmea_task(TestCase1.token, TestCase1.user_id, project, role_type)
             pytest.assume(flag, "创建DFMEA任务失败")
             TestCase1.project_task_num = task_num  # 获取任务编号DFMEA新建任务使用
             print(task_num)
@@ -246,5 +243,6 @@ class TestCase1:
         with allure.step("step2:添加刚创建的预防措施"):
             pid_serial = TestCase1.save_invalid_nets[0]["serialNum"]
             pif_serial = TestCase1.save_invalid_nets[0]["pifSerial"]
-            res = saveMeasure().add_pre_measure(TestCase1.token, measure_serial, measure, enMeasure, pid_serial,pif_serial)
+            res = saveMeasure().add_pre_measure(TestCase1.token, measure_serial, measure, enMeasure, pid_serial,
+                                                pif_serial)
             pytest.assume(res, "添加探测措施失败")

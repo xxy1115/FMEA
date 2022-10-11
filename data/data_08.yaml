@@ -39,29 +39,3 @@ project:
       "sopDate": "2022-9-15"
       "startdate": "2022-9-15"
       "uploadAttachmentList": [ ]
-add_procedure_nodes:
-  "api":
-    "method": "post"
-    "url": "/pfmea_end/pfmeaProcessProcedure/save"
-    "json":
-      - "level": 1
-        "parentProjectProcedureSerial": ""
-        "ppSerial": "-1"
-        "processNo": "OP10"
-        "processProcedureId": ""
-        "projectSerial": ""
-        "sort": "10"
-      - "level": 1
-        "parentProjectProcedureSerial": ""
-        "ppSerial": "-1"
-        "processNo": "OP20"
-        "processProcedureId": ""
-        "projectSerial": ""
-        "sort": "10"
-      - "level": 1
-        "parentProjectProcedureSerial": ""
-        "ppSerial": "-1"
-        "processNo": "OP30"
-        "processProcedureId": ""
-        "projectSerial": ""
-        "sort": "10"
