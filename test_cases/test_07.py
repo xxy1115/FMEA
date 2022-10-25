@@ -24,7 +24,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     """客户要求"""
-    token = "216f5a28ad184417af8583e77f837435"
+    token = "75ccb1dd22124dbf94e01225550d0760"
     user_id = 1681
     dicts = {}
     user_info = {}
@@ -34,13 +34,13 @@ class TestCase1:
     added_product_nodes = []  # 添加的产品节点
 
     def setup_class(self):
-        self.test_data = parse_yaml("../data/data_02.yaml")
+        self.test_data = parse_yaml("../data/data_04.yaml")
 
     def teardown_class(self):
         pass
 
     @allure.title("登录")
-    def atest_1(self):
+    def test_1(self):
         res = Login().login(self.test_data["user"]["user01"])
         pytest.assume(res, "登录失败")
         TestCase1.token = res["token"]
