@@ -18,7 +18,7 @@ class elementFunction(BaseApi):
         enFunction = f'EF{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/elementFunction/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/elementFunction/saveOrUpdate",
             "json": {
                 "enFunction": enFunction,
                 "function": function,
@@ -43,7 +43,7 @@ class elementFunction(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/elementFunction/delete",
+            "url": "/gateway/fmea-knowledge/elementFunction/delete",
             "data": ef_serial
         }
         res = self.send(data)

@@ -9,7 +9,7 @@ class selectFeatureProductTypeBySerialNum(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/fmea/projectFeature/selectFeatureProductTypeBySerialNum",
+            "url": "/gateway/fmea-system/projectFeature/selectFeatureProductTypeBySerialNum",
             "params": {
                 "serialNum": serial_num
             }

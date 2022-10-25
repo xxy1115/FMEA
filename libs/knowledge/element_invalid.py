@@ -18,7 +18,7 @@ class elementInvalid(BaseApi):
         enInvalidMode = f'EI{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/elementInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/elementInvalid/saveOrUpdate",
             "json": {
                 "elementType": elementType,
                 "enInvalidMode": enInvalidMode,
@@ -44,7 +44,7 @@ class elementInvalid(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/elementInvalid/delete",
+            "url": "/gateway/fmea-knowledge/elementInvalid/delete",
             "data": ei_serial
         }
         res = self.send(data)

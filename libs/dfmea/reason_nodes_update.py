@@ -11,7 +11,7 @@ class reasonNodesUpdate(BaseApi):
         res = getInvalid().get_invalid(token, product_type)
         data = {
             "method": "post",
-            "url": "/fmea/projectInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-system/projectInvalid/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -44,7 +44,7 @@ class reasonNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/ktNew/forEachSaveGnjmjzPfRelation",
+            "url": "/gateway/fmea-system/ktNew/forEachSaveGnjmjzPfRelation",
             "json": {
                 "parentPfSerial": pf_serial,
                 "pfSerials": [],
@@ -61,7 +61,7 @@ class reasonNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/invalidNet/saveProjectInvalidNets",
+            "url": "/gateway/fmea-system/invalidNet/saveProjectInvalidNets",
             "json": []
         }
         for i, item in enumerate(project_invalids):
@@ -81,7 +81,7 @@ class reasonNodesUpdate(BaseApi):
         product = res[3]
         data = {
             "method": "post",
-            "url": "/fmea/projectInvalid/save",
+            "url": "/gateway/fmea-system/projectInvalid/save",
             "json": {
                 "enInvalidModeName": product["enInvalidMode"],
                 "invalidmodeName": product["invalidmode"],
@@ -109,7 +109,7 @@ class reasonNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/invalidNet/updateDfmeaProjectInvalidNet",
+            "url": "/gateway/fmea-system/invalidNet/updateDfmeaProjectInvalidNet",
             "json": {
                 "secondPfSerial": "",
                 "secondPidSerial": second_pid_serial,
@@ -128,7 +128,7 @@ class reasonNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/invalidNet/delete",
+            "url": "/gateway/fmea-system/invalidNet/delete",
             "json": {
                 "name": name,
                 "pifSerial": pif_serial,

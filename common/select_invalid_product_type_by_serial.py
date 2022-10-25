@@ -9,7 +9,7 @@ class selectInvalidProductTypeBySerialNum(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/fmea/projectInvalid/selectInvalidProductTypeBySerialNum",
+            "url": "/gateway/fmea-system/projectInvalid/selectInvalidProductTypeBySerialNum",
             "params": {
                 "serialNum": serial_num
             }

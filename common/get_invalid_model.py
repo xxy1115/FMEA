@@ -14,7 +14,7 @@ class getInvalidModel(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/failureBasicTerminology/list",
+            "url": "/gateway/fmea-knowledge/failureBasicTerminology/list",
             "json": {
                 "endTime": "",
                 "experienceType": "",

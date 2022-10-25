@@ -18,7 +18,7 @@ class systemResponse(BaseApi):
         enMeasure = f'diagnose{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/knowledgeSystemResponseMeasure/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/knowledgeSystemResponseMeasure/saveOrUpdate",
             "json": {
                 "enMeasure": enMeasure,
                 "measure": measure,
@@ -41,7 +41,7 @@ class systemResponse(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/knowledgeSystemResponseMeasure/delete",
+            "url": "/gateway/fmea-knowledge/knowledgeSystemResponseMeasure/delete",
             "data": system_response_serial
         }
         res = self.send(data)

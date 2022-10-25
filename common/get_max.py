@@ -10,7 +10,7 @@ class getMax(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/fmea/genNum/getMax",
+            "url": "/gateway/fmea-system/genNum/getMax",
             "params": {
                 "searchTable": searchTable,
                 "searchColumn": searchColumn,

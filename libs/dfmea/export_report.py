@@ -17,7 +17,7 @@ class exportReport(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/dfmeaRecordExport/dfmeaRecordExport",
+            "url": "/gateway/fmea-system/dfmeaRecordExport/dfmeaRecordExport",
             "data": {
                 "pptSerial": ppt_serial,
                 "exportType": exportType,

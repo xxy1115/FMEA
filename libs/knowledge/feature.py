@@ -18,7 +18,7 @@ class Feature(BaseApi):
         feature_explain = f'特性{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/productFeatureCategory/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/productFeatureCategory/saveOrUpdate",
             "json": {
                 "enFeature": en_feature,
                 "featureExplain": feature_explain,
@@ -41,7 +41,7 @@ class Feature(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/productFeatureCategory/delete",
+            "url": "/gateway/fmea-knowledge/productFeatureCategory/delete",
             "data": feature_serial
         }
         res = self.send(data)

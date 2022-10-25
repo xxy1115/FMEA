@@ -18,7 +18,7 @@ class detMeasure(BaseApi):
         enMeasure = f'detMeasure{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/detMeasure/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/detMeasure/saveOrUpdate",
             "json": {
                 "applicableObject": applicableObject,
                 "controlMethod": "控制方法",
@@ -50,7 +50,7 @@ class detMeasure(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/detMeasure/delete",
+            "url": "/gateway/fmea-knowledge/detMeasure/delete",
             "data": det_measure_serial
         }
         res = self.send(data)

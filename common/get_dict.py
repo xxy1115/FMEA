@@ -14,10 +14,12 @@ class getDict(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/fmea/dictionary/getDics"
+            "url": "/gateway/fmea-system/dictionary/getDics"
         }
         res = self.send(data)
         if res.status_code != 200:
+            return False
+        if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
         dict = json.loads(res.json()["data"])
         return dict

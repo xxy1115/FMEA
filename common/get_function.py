@@ -14,7 +14,7 @@ class getFunction(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/function/list",
+            "url": "/gateway/fmea-knowledge/function/list",
             "json": {
                 "customers": [],
                 "depNames": "",

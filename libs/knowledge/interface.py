@@ -18,7 +18,7 @@ class Interface(BaseApi):
         interfaceDescribe = f'界面描述{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/interfaceDescribe/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/interfaceDescribe/saveOrUpdate",
             "json": {
                 "enInterfaceDescribe": enInterfaceDescribe,
                 "interfaceDescribe": interfaceDescribe,
@@ -41,7 +41,7 @@ class Interface(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/interfaceDescribe/delete",
+            "url": "/gateway/fmea-knowledge/interfaceDescribe/delete",
             "data": IF_serial
         }
         res = self.send(data)

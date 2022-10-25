@@ -9,7 +9,7 @@ class PfmeaTree(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/pfmea_end/pfmeaTree/getProjectProcedureByProjectSerialNum",
+            "url": "/gateway/fmea-pfmea/pfmeaTree/getProjectProcedureByProjectSerialNum",
             "params": {"serialNum": serial_num}
         }
         res = self.send(data)

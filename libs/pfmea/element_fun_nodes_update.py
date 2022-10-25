@@ -15,7 +15,7 @@ class elementFunNodesUpdate(BaseApi):
         res = getElementFun().get_element_fun(token, product_type)
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectElementFunction/saveOrUpdate",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectElementFunction/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -40,7 +40,7 @@ class elementFunNodesUpdate(BaseApi):
         enFunction = res[3]["enFunction"]
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectElementFunction/updateProjectElementFunction",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectElementFunction/updateProjectElementFunction",
             "json": {
                 "elementFunction": function,
                 "elementFunctionSerial": elementFunctionSerial,
@@ -60,7 +60,7 @@ class elementFunNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": f"/pfmea_end/pfmeaProjectElementFunction/delete",
+            "url": f"/gateway/fmea-pfmea/pfmeaProjectElementFunction/delete",
             "data": serial_num
         }
         res = self.send(data)

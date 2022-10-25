@@ -18,7 +18,7 @@ class occMeasure(BaseApi):
         enMeasure = f'preMeasure{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/occMeasure/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/occMeasure/saveOrUpdate",
             "json": {
                 "applicableObject": applicableObject,
                 "enMeasure": enMeasure,
@@ -47,7 +47,7 @@ class occMeasure(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/occMeasure/delete",
+            "url": "/gateway/fmea-knowledge/occMeasure/delete",
             "data": occ_measure_serial
         }
         res = self.send(data)

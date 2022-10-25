@@ -14,7 +14,7 @@ class getValidPptTree(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/project/getValidPptTreeByProjectSerial",
+            "url": "/gateway/fmea-system/project/getValidPptTreeByProjectSerial",
             "json": {
                 "projectSerial": project_serial,
                 "searchValue": search_key,

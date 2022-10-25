@@ -5,14 +5,14 @@ user:
 project:
   "api":
     "method": "post"
-    "url": "/fmea/project/saveOrUpdate"
+    "url": "/gateway/fmea-system/project/saveOrUpdate"
     "json":
       "columns": [ ]
       "customer": ""
       "customerNeedFile": [ ]
       "deliverable": "DFMEA-KCDS-DVP"
       "enProgramName": ""
-      "enddate": "2022-07-30"
+      "enddate": "2023-07-30"
       "experienceFile": [ ]
       "instituteName": ""
       "owner":
@@ -35,4 +35,4 @@ project:
       "secrecyGrade": ""
       "sopDate": ""
       "uploadAttachmentList": [ ]
-      "startdate": "2022-07-10"
+      "startdate": "2023-07-10"

@@ -16,7 +16,7 @@ class programList(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/program_end/program/list",
+            "url": "/gateway/fmea-program/program/list",
             "json": {
                 "endTime": "",
                 "experienceType": "",
@@ -38,7 +38,7 @@ class programList(BaseApi):
                 "projectSerial": "",
                 "searchId": "",
                 "searchKey": search_key,
-                "pageSize": 10,
+                "pageSize": 15,
                 "serialNums": "",
                 "sort": "",
                 "sortColumn": "",

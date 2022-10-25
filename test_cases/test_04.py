@@ -10,6 +10,7 @@ from common.select_feature_product_type_by_serial import selectFeatureProductTyp
 from common.select_function_product_type_by_serial import selectFunctionProductTypeBySerialNum
 from common.select_invalid_product_type_by_serial import selectInvalidProductTypeBySerialNum
 from common.select_product_by_pptSerial import selectProductByPptSerial
+from libs.dfmea.delete_dfmea import deleteDfmea
 from libs.dfmea.dfmea_task import DfmeaTask
 from libs.dfmea.add_dfmea import addDFMEA
 from common.get_dict import getDict
@@ -20,6 +21,11 @@ from libs.dfmea.save_function import saveFunction
 from libs.dfmea.save_invalid import saveInvalid
 from libs.dfmea.save_measure import saveMeasure
 from libs.dfmea.save_reason import saveReason
+from libs.knowledge.det_measure import detMeasure
+from libs.knowledge.feature import Feature
+from libs.knowledge.functions import Functions
+from libs.knowledge.invalid import Invalid
+from libs.knowledge.occ_measure import occMeasure
 from libs.program_list import programList
 from libs.save_product import saveProduct
 from utils.yamlControl import parse_yaml
@@ -27,7 +33,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 1681
+    user_id = 0
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -102,8 +108,6 @@ class TestCase1:
 
     @allure.title("结构树添加产品节点--创建产品")
     def test_6(self):
-        # ppt_serial = "bb24bf56fdcf4b3d8f7185cde688dfb7"
-        # project_serial = "34d785ef6d5d4b5f871ec62bf625e41a"
         project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
         ppt_serial = TestCase1.dfmea_info["productTree"]["serialNum"]
         product_level = TestCase1.dicts["004"][0]["code"]  # 层级
@@ -115,24 +119,28 @@ class TestCase1:
             flag, max_num = saveProduct().save_product(TestCase1.token, product_level,
                                                        TestCase1.product_types)
             pytest.assume(flag, "新建产品失败")
+            TestCase1.product_serial = flag
         with allure.step("step3:添加刚创建的产品"):
             res = saveProduct().add_product(TestCase1.token, TestCase1.product_type, ppt_serial, project_serial,
                                             max_num)
-            pytest.assume(res, " ")
+            pytest.assume(res, "添加产品失败")
             TestCase1.added_product_nodes = res
 
     @allure.title("结构树添加功能节点--创建功能")
     def test_7(self):
         types = [TestCase1.dicts["008"][0]["code"]]  # 功能分类 functionTypes
         category = TestCase1.dicts["016"][0]["code"]  # 功能类别 functionCategory
+        customers = [TestCase1.dicts["006"][0]["code"]]
         with allure.step("step1:结构树创建功能"):
-            result, en_function, function = saveFunction().save_function(TestCase1.token, types, category,
+            result, en_function, function = saveFunction().save_function(TestCase1.token, customers, types, category,
                                                                          TestCase1.product_types)  # 传上级的产品类别
             pytest.assume(result["flag"], "创建功能失败")
             serial_num = result["serialNum"]
+            TestCase1.function_serialNum = serial_num
         with allure.step("step2:添加刚创建的功能"):
             ppt_serial = TestCase1.added_product_nodes[0]["serialNum"]
-            res = saveFunction().add_function(TestCase1.token, en_function, function, serial_num, ppt_serial)
+            type = TestCase1.dicts["008"][0]["code"]
+            res = saveFunction().add_function(TestCase1.token, en_function, function, serial_num, ppt_serial, type)
             pytest.assume(res, "添加功能节点失败")
             TestCase1.added_function_nodes = res
 
@@ -146,6 +154,7 @@ class TestCase1:
         with allure.step("step2:结构树创建特性"):
             product_feature_category = saveFeature().save_feature(TestCase1.token, product_types)
             pytest.assume(product_feature_category, "创建特性失败")
+            TestCase1.feature_serialNum = product_feature_category["serialNum"]
         with allure.step("step3:添加刚创建的特性"):
             res = saveFeature().add_feature(TestCase1.token, product_feature_category, pf_serial)
             pytest.assume(res, "添加特性节点失败")
@@ -178,6 +187,7 @@ class TestCase1:
                                                                                     faultModeName, functionGroupId,
                                                                                     invalidUseType, product_types)
             pytest.assume(invalid_serial, "创建失效失败")
+            TestCase1.created_invalid_serial = invalid_serial
         with allure.step("step5:添加刚创建的失效"):
             pfe_serial = TestCase1.added_feature_nodes[0]["serialNum"]
             ppt_serial = TestCase1.added_product_nodes[0]["serialNum"]
@@ -199,6 +209,7 @@ class TestCase1:
                                                                                 TestCase1.applicableObject,
                                                                                 measure_type, product_types)
             pytest.assume(measure_serial, "创建探测措施失败")
+            TestCase1.det_measure_serial = measure_serial
         with allure.step("step3:添加刚创建的探测措施"):
             res = saveMeasure().add_det_measure(TestCase1.token, measure_serial, measure, enMeasure, invalid_serial)
             pytest.assume(res, "添加探测措施失败")
@@ -219,6 +230,7 @@ class TestCase1:
             serial_number, invalidmode = saveReason().save_reason(TestCase1.token, TestCase1.applicableObject, category,
                                                                   invalidUseType, product_types)
             pytest.assume(serial_number, "创建失效原因失败")
+            TestCase1.invalid_reason_serial = serial_number
 
         with allure.step("step3:添加刚创建的失效原因"):
             invalid_obj = TestCase1.added_invalid_nodes[0]
@@ -240,9 +252,40 @@ class TestCase1:
                                                                                 pre_measure_type,
                                                                                 TestCase1.product_types)
             pytest.assume(measure_serial, "创建预防措施失败")
+            TestCase1.occ_measure_serial = measure_serial
         with allure.step("step2:添加刚创建的预防措施"):
             pid_serial = TestCase1.save_invalid_nets[0]["serialNum"]
             pif_serial = TestCase1.save_invalid_nets[0]["pifSerial"]
             res = saveMeasure().add_pre_measure(TestCase1.token, measure_serial, measure, enMeasure, pid_serial,
                                                 pif_serial)
             pytest.assume(res, "添加探测措施失败")
+
+    @allure.title("删除DFMEA")
+    def test_13(self):
+        project_serial = TestCase1.dfmea_info["project"]["serialNum"]
+        res = deleteDfmea().delete_dfmea(TestCase1.token, project_serial)
+        pytest.assume(res["flag"], "删除DFMEA失败")
+
+    @allure.title("删除知识库里的测试数据")
+    def test_14(self):
+        with allure.step("step1:删除产品"):
+            res = saveProduct().del_product(TestCase1.token, TestCase1.product_serial)
+            pytest.assume(res["flag"] == "1", "删除产品失败")
+        with allure.step("step2:删除产品功能"):
+            res = Functions().del_function(TestCase1.token, TestCase1.function_serialNum)
+            pytest.assume(res["flag"], "删除产品功能失败")
+        with allure.step("step3:删除产品特性"):
+            res = Feature().del_feature(TestCase1.token, TestCase1.feature_serialNum)
+            pytest.assume(res["flag"], "删除产品特性失败")
+        with allure.step("step4:删除失效"):
+            res = Invalid().del_invalid(TestCase1.token, TestCase1.created_invalid_serial)
+            pytest.assume(res["flag"], "删除失效失败")
+        with allure.step("step5:删除失效原因"):
+            res = Invalid().del_invalid(TestCase1.token, TestCase1.invalid_reason_serial)
+            pytest.assume(res["flag"], "删除失效原因失败")
+        with allure.step("step6:删除探测措施"):
+            res = detMeasure().del_det_measure(TestCase1.token, TestCase1.det_measure_serial)
+            pytest.assume(res["flag"], "删除探测措施失败")
+        with allure.step("step7:删除预防措施"):
+            res = occMeasure().del_occ_measure(TestCase1.token, TestCase1.occ_measure_serial)
+            pytest.assume(res["flag"], "删除预防措施失败")

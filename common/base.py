@@ -32,7 +32,7 @@ class BaseApi:
         :param data: 用户名密码
         :return: [token,用户ID]
         """
-        url = HOST + "/fmea/login"
+        url = HOST + "/gateway/fmea-system/login"
         timestamp = int(round(time.time() * 1000))
         username = data["username"]
         password = get_md5(data["password"])  # 调用md5加密方法

@@ -15,7 +15,7 @@ class savePfRelation(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/ktNew/forEachSaveGnjmjzPfRelation",
+            "url": "/gateway/fmea-system/ktNew/forEachSaveGnjmjzPfRelation",
             "json": {
                 "parentPfSerial": first_pf_serial,
                 "pfSerials": [second_pf_serial],
@@ -37,7 +37,7 @@ class savePfRelation(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/ktNew/saveConsequenceGnjmjzPfRelation",
+            "url": "/gateway/fmea-system/ktNew/saveConsequenceGnjmjzPfRelation",
             "json": {
                 "parentPfSerials": [first_pf_serial],
                 "parentPfeSerials": [first_pfe_serial],

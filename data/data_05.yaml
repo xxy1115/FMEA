@@ -5,7 +5,7 @@ user:
 project:
   "api":
     "method": "post"
-    "url": "/pfmea_end/pfmeaProject/saveOrUpdate"
+    "url": "/gateway/fmea-pfmea/pfmeaProject/saveOrUpdate"
     "json":
       "branchName": ""
       "columns": [ ]

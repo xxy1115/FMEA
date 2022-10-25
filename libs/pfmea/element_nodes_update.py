@@ -15,7 +15,7 @@ class elementNodesUpdate(BaseApi):
         res = getElement().get_element(token, product_type)
         data = {
             "method": "post",
-            "url": "/pfmea_end/projectElement/save",
+            "url": "/gateway/fmea-pfmea/projectElement/save",
             "json": []
         }
         for i in range(num):
@@ -44,7 +44,7 @@ class elementNodesUpdate(BaseApi):
         procedureElementSerial = res[3]["serialNum"]
         data = {
             "method": "post",
-            "url": "/pfmea_end/projectElement/updateProjectElement",
+            "url": "/gateway/fmea-pfmea/projectElement/updateProjectElement",
             "json": {
                 "element": element,
                 "elementType": elementType,
@@ -66,7 +66,7 @@ class elementNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": f"/pfmea_end/projectElement/delete/{projectProcedureSerial}",
+            "url": f"/gateway/fmea-pfmea/projectElement/delete/{projectProcedureSerial}",
             "data": serial_num
         }
         res = self.send(data)

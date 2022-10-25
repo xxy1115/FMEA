@@ -20,7 +20,7 @@ class saveInvalid(BaseApi):
         enInvalidMode = f'InvalidMode{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/invalidMode/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/invalidMode/saveOrUpdate",
             "json": {
                 "applicableObject": applicableObject,
                 "category": category,
@@ -54,7 +54,7 @@ class saveInvalid(BaseApi):
 
         data = {
             "method": "post",
-            "url": "/fmea/projectInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-system/projectInvalid/saveOrUpdate",
             "json": [{
                 "edituser": 1,
                 "enInvalidModeName": enInvalidMode,

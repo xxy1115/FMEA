@@ -18,7 +18,7 @@ class frequencyRating(BaseApi):
         enMeasure = f'frequency{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/knowledgeFrequencyRatingMeasure/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/knowledgeFrequencyRatingMeasure/saveOrUpdate",
             "json": {
                 "enMeasure": enMeasure,
                 "frequency":"5",
@@ -42,7 +42,7 @@ class frequencyRating(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/knowledgeFrequencyRatingMeasure/delete",
+            "url": "/gateway/fmea-knowledge/knowledgeFrequencyRatingMeasure/delete",
             "data": frequency_measure_serial
         }
         res = self.send(data)

@@ -13,7 +13,7 @@ class functionNodesUpdate(BaseApi):
         res = getFunction().get_function(token, product_type)  # 查询功能
         data = {
             "method": "post",
-            "url": "/fmea/projectFunction/saveOrUpdate",
+            "url": "/gateway/fmea-system/projectFunction/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -59,7 +59,7 @@ class functionNodesUpdate(BaseApi):
         function = res[3]
         data = {
             "method": "post",
-            "url": "/fmea/projectFunction/updatePF",
+            "url": "/gateway/fmea-system/projectFunction/updatePF",
             "json": {
                 "enFunctionName": function["enFunction"],
                 "functionName1": function["function"],
@@ -79,7 +79,7 @@ class functionNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/projectFunction/delete",
+            "url": "/gateway/fmea-system/projectFunction/delete",
             "json": {
                 "functionName": fun_name,
                 "pifSerial": pif_serial,

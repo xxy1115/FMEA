@@ -24,7 +24,7 @@ class Standard(BaseApi):
         testProject = f'试验/检测项目{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/technicalStandard/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/technicalStandard/saveOrUpdate",
             "json": {
                 "chapterNum": "要求对应章节编号",
                 "customer": customer,
@@ -58,7 +58,7 @@ class Standard(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/technicalStandard/delete",
+            "url": "/gateway/fmea-knowledge/technicalStandard/delete",
             "data": standard_serial
         }
         res = self.send(data)

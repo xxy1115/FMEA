@@ -14,7 +14,7 @@ class getMeasureP(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/occMeasure/list",
+            "url": "/gateway/fmea-knowledge/occMeasure/list",
             "json": {
                 "applicableObject": "D",
                 "customers": [],

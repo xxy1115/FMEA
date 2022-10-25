@@ -14,7 +14,7 @@ class procedureNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProcessProcedure/save",
+            "url": "/gateway/fmea-pfmea/pfmeaProcessProcedure/save",
             "json": []
         }
         res = getProcedure().get_procedure(token, product_type)
@@ -39,7 +39,7 @@ class procedureNodesUpdate(BaseApi):
         processProcedureId = res[3]["serialNum"]
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectProcedure/update",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectProcedure/update",
             "json": {
                 "processProcedureId": processProcedureId,
                 "serialNum": serial_num
@@ -57,7 +57,7 @@ class procedureNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": f"/pfmea_end/pfmeaProcessProcedure/delete",
+            "url": f"/gateway/fmea-pfmea/pfmeaProcessProcedure/delete",
             "data": serial_num
         }
         res = self.send(data)

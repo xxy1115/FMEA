@@ -11,7 +11,7 @@ class PfmeaTask(BaseApi):
         task_num = getMaxNum().get_max_num(token, "pfmea_project_procedure_task", "task_num", "PT")
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectTask/saveOrUpdate",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectTask/saveOrUpdate",
             "json": {
                 "deliverable": project["deliverable"],
                 "isApproval": "1",

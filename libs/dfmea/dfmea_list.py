@@ -9,10 +9,10 @@ class DfmeaList(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/project/list",
+            "url": "/gateway/fmea-system/project/list",
             "json": {
                 "from": 0,
-                "pageSize": 10,
+                "pageSize": 12,
                 "platform": "",
                 "projectSerialNum": "",
                 "searchKey": search_key,

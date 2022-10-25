@@ -16,7 +16,7 @@ class addProgram(BaseApi):
         model, platform = dicts
         data = {
             "method": "post",
-            "url": "/program_end/program/saveOrUpdate",
+            "url": "/gateway/fmea-program/program/saveOrUpdate",
             "json": {
                 "columns": [],
                 "startDate": "2023-07-25",

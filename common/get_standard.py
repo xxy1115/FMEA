@@ -14,7 +14,7 @@ class getStandard(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/technicalStandard/list",
+            "url": "/gateway/fmea-knowledge/technicalStandard/list",
             "json": {
                 "endTime": "",
                 "experienceType": "",

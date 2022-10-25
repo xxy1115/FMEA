@@ -11,7 +11,7 @@ class measurePNodesUpdate(BaseApi):
         res = getMeasurePfmea().get_measure_occ(token, product_type)
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectMeasure/saveProjectMeasures",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectMeasure/saveProjectMeasures",
             "json": []
         }
         for i in range(num):
@@ -38,7 +38,7 @@ class measurePNodesUpdate(BaseApi):
         technicalrequirement = res[3]["technicalrequirement"]
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectMeasure/updatePMOne",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectMeasure/updatePMOne",
             "json": [{
                 "enMeasuresName": enMeasuresName,
                 "measureSerial": measureSerial,
@@ -64,7 +64,7 @@ class measurePNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectMeasure/delete",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectMeasure/delete",
             "json": {
                 "invalidMode": invalidMode,
                 "invalidType": "FC",
@@ -84,7 +84,7 @@ class measurePNodesUpdate(BaseApi):
         res = getMeasurePfmea().get_measure_det(token, product_type)
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectMeasure/saveProjectMeasures",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectMeasure/saveProjectMeasures",
             "json": []
         }
         for i in range(num):
@@ -118,7 +118,7 @@ class measurePNodesUpdate(BaseApi):
         technicalrequirement = res[3]["technicalrequirement"]
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectMeasure/updatePMOne",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectMeasure/updatePMOne",
             "json": [{
                 "controlMethod": controlMethod,
                 "det": det,
@@ -149,7 +149,7 @@ class measurePNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectMeasure/delete",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectMeasure/delete",
             "json": {
                 "invalidMode": invalidMode,
                 "invalidType": "FC",

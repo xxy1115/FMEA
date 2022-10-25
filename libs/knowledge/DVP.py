@@ -25,7 +25,7 @@ class DVP(BaseApi):
         dvpScheme = f'试验/检验方法{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/dvpStandard/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/dvpStandard/saveOrUpdate",
             "json": {
                 "standardName": standardName,
                 "enStandardName": enStandardName,
@@ -60,7 +60,7 @@ class DVP(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/dvpStandard/list",
+            "url": "/gateway/fmea-knowledge/dvpStandard/list",
             "json": {
                 "endTime": "",
                 "experienceType": "",
@@ -109,7 +109,7 @@ class DVP(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/dvpStandard/delete",
+            "url": "/gateway/fmea-knowledge/dvpStandard/delete",
             "data": DVP_serial
         }
         res = self.send(data)

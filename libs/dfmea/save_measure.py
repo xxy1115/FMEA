@@ -18,7 +18,7 @@ class saveMeasure(BaseApi):
         enMeasure = f'detMeasure{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/detMeasure/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/detMeasure/saveOrUpdate",
             "json": {
                 "applicableObject": applicableObject,
                 "det": "10",
@@ -47,7 +47,7 @@ class saveMeasure(BaseApi):
 
         data = {
             "method": "post",
-            "url": "/fmea/projectMeasure/savePM",
+            "url": "/gateway/fmea-system/projectMeasure/savePM",
             "json": [{
                 "det": "10",
                 "edituser": 1,
@@ -80,7 +80,7 @@ class saveMeasure(BaseApi):
         enMeasure = f'preMeasure{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/occMeasure/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/occMeasure/saveOrUpdate",
             "json": {
                 "applicableObject": applicableObject,
                 "det": "10",
@@ -109,7 +109,7 @@ class saveMeasure(BaseApi):
 
         data = {
             "method": "post",
-            "url": "/fmea/projectMeasure/savePM",
+            "url": "/gateway/fmea-system/projectMeasure/savePM",
             "json": [{
                 "edituser": 1,
                 "enMeasuresName": enMeasure,

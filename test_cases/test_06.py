@@ -4,6 +4,7 @@ import allure
 
 from common.get_product import getProduct
 from common.login import Login
+from libs.dfmea.delete_dfmea import deleteDfmea
 from libs.dfmea.dfmea_task import DfmeaTask
 from libs.dfmea.add_dfmea import addDFMEA
 from common.get_dict import getDict
@@ -16,7 +17,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 1681
+    user_id = 0
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -100,7 +101,8 @@ class TestCase1:
     @allure.title("框图获取当前所有节点")
     def test_7(self):
         project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
-        res = KT().get_kt(TestCase1.token, project_serial)
+        ppt_serial = TestCase1.dfmea_info["productTree"]["serialNum"]
+        res = KT().get_kt(TestCase1.token, project_serial, ppt_serial)
         pytest.assume(res, "框图获取当前所有节点失败")
         TestCase1.kt_info = res
 
@@ -114,9 +116,15 @@ class TestCase1:
         res = KT().save_kt_data(TestCase1.token, ppt_serial, project_serial, kt_serial, ktNodeList, ktNodes)
         pytest.assume(res["flag"] == "1", "框图编辑保存失败")
 
-    @allure.title("保存连线类型")
+    # @allure.title("保存连线类型")
+    # def test_9(self):
+    #     project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
+    #     ppt_serial = TestCase1.dfmea_info["productTree"]["serialNum"]
+    #     res = KT().save_line_type(TestCase1.token, ppt_serial, project_serial)
+    #     pytest.assume(res, "保存连线类型失败")
+
+    @allure.title("删除DFMEA")
     def test_9(self):
-        project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
-        ppt_serial = TestCase1.dfmea_info["productTree"]["serialNum"]
-        res = KT().save_line_type(TestCase1.token, ppt_serial, project_serial)
-        pytest.assume(res, "保存连线类型失败")
+        project_serial = TestCase1.dfmea_info["project"]["serialNum"]
+        res = deleteDfmea().delete_dfmea(TestCase1.token, project_serial)
+        pytest.assume(res["flag"], "删除DFMEA失败")

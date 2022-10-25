@@ -14,7 +14,7 @@ class getProduct(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/main_data_end/product/list",
+            "url": "/gateway/fmea-maindata/product/list",
             "json": {
                 "endTime": "",
                 "experienceType": "",

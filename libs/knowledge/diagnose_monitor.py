@@ -18,7 +18,7 @@ class diagnoseMonitor(BaseApi):
         enMeasure = f'diagnose{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/knowledgeDiagnoseMonitorMeasure/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/knowledgeDiagnoseMonitorMeasure/saveOrUpdate",
             "json": {
                 "enMeasure": enMeasure,
                 "measure": measure,
@@ -42,7 +42,7 @@ class diagnoseMonitor(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/knowledgeDiagnoseMonitorMeasure/delete",
+            "url": "/gateway/fmea-knowledge/knowledgeDiagnoseMonitorMeasure/delete",
             "data": diagnose_measure_serial
         }
         res = self.send(data)

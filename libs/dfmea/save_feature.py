@@ -18,7 +18,7 @@ class saveFeature(BaseApi):
         feature_explain = f'特性{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/productFeatureCategory/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/productFeatureCategory/saveOrUpdate",
             "json": {
                 "enFeature": en_feature,
                 "featureExplain": feature_explain,
@@ -45,7 +45,7 @@ class saveFeature(BaseApi):
         serial_num = product_feature_category["serialNum"]
         data = {
             "method": "post",
-            "url": "/fmea/projectFeature/saveFeatures",
+            "url": "/gateway/fmea-system/projectFeature/saveFeatures",
             "json": [{
                 "controlFeature": "1",
                 "enFeature": en_feature,

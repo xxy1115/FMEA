@@ -18,7 +18,7 @@ class functionApply(BaseApi):
         functionId = res[0]["functionId"]
         data = {
             "method": "post",
-            "url": "/knowledge_end/function/apply",
+            "url": "/gateway/fmea-knowledge/function/apply",
             "json": {
                 "applyRemark": "备注",
                 "functionIds": functionId,
@@ -45,7 +45,7 @@ class functionApply(BaseApi):
         functionId = res[0]["functionId"]
         data = {
             "method": "post",
-            "url": "/knowledge_end/function/approve",
+            "url": "/gateway/fmea-knowledge/function/approve",
             "json": {
                 "approveRemark": "同意",
                 "approveState": "0",

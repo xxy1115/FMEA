@@ -18,7 +18,7 @@ class saveProduct(BaseApi):
         max_num = getMaxNum().get_max_num(token, "product", "product_num", "PA")  # 获取产品编号
         data = {
             "method": "post",
-            "url": "/main_data_end/product/saveProduct",
+            "url": "/gateway/fmea-maindata/product/saveProduct",
             "json": {
                 "enProductName": f'Product{max_num}',
                 "productCategory": [],
@@ -38,6 +38,22 @@ class saveProduct(BaseApi):
         flag = res.json()["data"]["flag"]
         return [flag, max_num]
 
+    def del_product(self, token, product_serial):
+        """从知识库删除创建的产品"""
+        self.token = token
+        data = {
+            "method": "post",
+            "url": "/gateway/fmea-maindata/product/deleteProduct",
+            "data": product_serial
+        }
+        res = self.send(data)
+        if res.status_code != 200:
+            return False
+        if res.json()["meta"] and res.json()["meta"]["success"] != True:
+            return False
+        result = res.json()["data"]
+        return result
+
     def add_product(self, token, product_type, ppt_serial, project_serial, product_num):
         """
         在结构树上添加一个产品
@@ -52,7 +68,7 @@ class saveProduct(BaseApi):
         en_product_name = res[0]["enProductName"]
         data = {
             "method": "post",
-            "url": "/fmea/project/addProductNodes",
+            "url": "/gateway/fmea-system/project/addProductNodes",
             "json": [{
                 "enProductName": en_product_name,
                 "level": 1,

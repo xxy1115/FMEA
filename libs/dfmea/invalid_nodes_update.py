@@ -11,7 +11,7 @@ class invalidNodesUpdate(BaseApi):
         res = getInvalid().get_invalid(token, product_type)
         data = {
             "method": "post",
-            "url": "/fmea/projectInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-system/projectInvalid/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -20,7 +20,7 @@ class invalidNodesUpdate(BaseApi):
                  "invalidmodeName": res[i]["invalidmode"],
                  "invalidmodeSerial": res[i]["serialNum"],
                  "occurrence": res[i]["occurrence"], "pfSerial": pf_serial,
-                 "pptSerial": ppt_serial, "severity": res[i]["severity"],
+                 "pptSerial": ppt_serial, "severity": res[i]["severity"]
                  })
         res = self.send(data)
         # for item in data["api"]["json"]:
@@ -46,7 +46,7 @@ class invalidNodesUpdate(BaseApi):
         product = res[3]
         data = {
             "method": "post",
-            "url": "/fmea/projectInvalid/updatePI",
+            "url": "/gateway/fmea-system/projectInvalid/updatePI",
             "json": {
                 "enInvalidModeName": product["enInvalidMode"],
                 "invalidmodeName": product["invalidmode"],
@@ -66,7 +66,7 @@ class invalidNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/projectInvalid/delete",
+            "url": "/gateway/fmea-system/projectInvalid/delete",
             "json": {
                 "pidName": invalid_name,
                 "serialNum": serial_num

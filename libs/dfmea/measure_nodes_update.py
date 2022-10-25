@@ -11,7 +11,7 @@ class measureNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/projectMeasure/savePM",
+            "url": "/gateway/fmea-system/projectMeasure/savePM",
             "json": []
         }
         if measures_type == 0 or measures_type == 2:  # 0是现行预防 1是现行探测，2是优化预防 3是优化探测
@@ -67,7 +67,7 @@ class measureNodesUpdate(BaseApi):
             measure = res[3]
             data = {
                 "method": "post",
-                "url": "/fmea/projectMeasure/updatePM",
+                "url": "/gateway/fmea-system/projectMeasure/updatePM",
                 "json": {
                     "det": "",
                     "enMeasuresName": measure["enMeasure"],
@@ -89,7 +89,7 @@ class measureNodesUpdate(BaseApi):
             measure = res[3]
             data = {
                 "method": "post",
-                "url": "/fmea/projectMeasure/updatePM",
+                "url": "/gateway/fmea-system/projectMeasure/updatePM",
                 "json": {
                     "det": measure["det"],
                     "enMeasuresName": measure["enMeasure"],
@@ -132,7 +132,7 @@ class measureNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/projectMeasure/delete",
+            "url": "/gateway/fmea-system/projectMeasure/delete",
             "json": {
                 "invalidMode": reason_name,  # 受冲击变形或者断裂(O:3,D:3)未加(O:3,D:3)
                 "measure": measure_name,  # 同上

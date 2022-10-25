@@ -10,7 +10,7 @@ class saveInvalidNets(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/invalidNet/saveProjectInvalidNets",
+            "url": "/gateway/fmea-system/invalidNet/saveProjectInvalidNets",
             "json": []
         }
         if flag == 0:

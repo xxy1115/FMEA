@@ -11,7 +11,7 @@ class featureNodesUpdate(BaseApi):
         res = getFeature().get_feature(token, product_type)
         data = {
             "method": "post",
-            "url": "/fmea/projectFeature/saveFeatures",
+            "url": "/gateway/fmea-system/projectFeature/saveFeatures",
             "json": []
         }
         for i in range(num):
@@ -35,7 +35,7 @@ class featureNodesUpdate(BaseApi):
         feature = res[3]
         data = {
             "method": "post",
-            "url": "/fmea/projectFeature/updateProjectFeature",
+            "url": "/gateway/fmea-system/projectFeature/updateProjectFeature",
             "json": {
                 "enTechnicalRequirements": "",
                 "feature": feature["featureExplain"],
@@ -69,7 +69,7 @@ class featureNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/projectFeature/deleteFeature",
+            "url": "/gateway/fmea-system/projectFeature/deleteFeature",
             "data": serial_num
         }
         res = self.send(data)

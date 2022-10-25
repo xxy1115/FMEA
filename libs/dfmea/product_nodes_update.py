@@ -10,7 +10,7 @@ class productNodesUpdate(BaseApi):
         res = getProduct().get_product(token, product_type)
         data = {
             "method": "post",
-            "url": "/fmea/project/addProductNodes",
+            "url": "/gateway/fmea-system/project/addProductNodes",
             "json": []
         }
         for i in range(num):
@@ -34,7 +34,7 @@ class productNodesUpdate(BaseApi):
         product = res[3]
         data = {
             "method": "post",
-            "url": "/fmea/project/updateProjectProductTree",
+            "url": "/gateway/fmea-system/project/updateProjectProductTree",
             "json": {
                 "partsName": product["productName"],
                 "productId": product["productId"],
@@ -51,7 +51,7 @@ class productNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/project/delProductNodes",
+            "url": "/gateway/fmea-system/project/delProductNodes",
             "data": serial_num
         }
         res = self.send(data)

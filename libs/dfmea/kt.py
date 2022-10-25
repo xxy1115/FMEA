@@ -12,7 +12,7 @@ class KT(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/project/getAllKtNodeNew",
+            "url": "/gateway/fmea-system/project/getAllKtNodeNew",
             "json": ppt_serials
         }
         res = self.send(data)
@@ -23,12 +23,15 @@ class KT(BaseApi):
         result = json.loads(res.json()["data"])
         return result
 
-    def get_kt(self, token, project_serial):
+    def get_kt(self, token, project_serial, ppt_serial):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/ktNew/getKt",
-            "data": project_serial
+            "url": "/gateway/fmea-system/ktNew/getKt",
+            "json": {
+                "currentPptSerial": ppt_serial,
+                "projectSerial": project_serial
+            }
         }
         res = self.send(data)
         if res.status_code != 200:
@@ -62,7 +65,7 @@ class KT(BaseApi):
         new_line_serial = "".join(num)
         data = {
             "method": "post",
-            "url": "/fmea/ktNew/saveKtData",
+            "url": "/gateway/fmea-system/ktNew/saveKtData",
             "json": {
                 "affirmLineList": [{"serialNum": new_line_serial}],
                 "currentPptSerial": ppt_serial,
@@ -88,6 +91,7 @@ class KT(BaseApi):
                     "ktNodeSerial2": ktNodeSerial2,
                     "ktSerial": kt_serial,
                     "lineType": 1,  # 界面类型(1-7)
+                    "linkCategory": "b",
                     "middleNodeName": middleNodeName,
                     "middleNodeSerial": middleNodeSerial,
                     "projectSerial": project_serial,
@@ -112,19 +116,19 @@ class KT(BaseApi):
         result = json.loads(res.json()["data"])
         return result
 
-    def save_line_type(self, token, project_node_serial, project_serial):
-        self.token = token
-        data = {
-            "method": "post",
-            "url": "/fmea/dfmeaBlockDiagramLineType/saveOrUpdateLineType",
-            "json": {
-                "lineType": "orthogonalLink",  # default-弧线;orthogonalLink-折线
-                "projectNodeSerial": project_node_serial,
-                "projectSerial": project_serial
-            }
-        }
-        res = self.send(data)
-        if res.status_code != 200:
-            return False
-        else:
-            return True
+    # def save_line_type(self, token, project_node_serial, project_serial):
+    #     self.token = token
+    #     data = {
+    #         "method": "post",
+    #         "url": "/fmea/dfmeaBlockDiagramLineType/saveOrUpdateLineType",
+    #         "json": {
+    #             "lineType": "orthogonalLink",  # default-弧线;orthogonalLink-折线
+    #             "projectNodeSerial": project_node_serial,
+    #             "projectSerial": project_serial
+    #         }
+    #     }
+    #     res = self.send(data)
+    #     if res.status_code != 200:
+    #         return False
+    #     else:
+    #         return True

@@ -12,7 +12,7 @@ class Invalid(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/failureBasicTerminology/getFaultModeNameList",
+            "url": "/gateway/fmea-knowledge/failureBasicTerminology/getFaultModeNameList",
         }
         res = self.send(data)
         if res.status_code != 200:
@@ -26,7 +26,7 @@ class Invalid(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/invalidMode/getFunctionGroupList",
+            "url": "/gateway/fmea-knowledge/invalidMode/getFunctionGroupList",
         }
         res = self.send(data)
         if res.status_code != 200:
@@ -49,7 +49,7 @@ class Invalid(BaseApi):
         enInvalidMode = f'InvalidMode{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/invalidMode/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/invalidMode/saveOrUpdate",
             "json": {
                 "applicableObject": applicableObject,
                 "category": category,
@@ -84,7 +84,7 @@ class Invalid(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/invalidMode/delete",
+            "url": "/gateway/fmea-knowledge/invalidMode/delete",
             "data": invalid_serial
         }
         res = self.send(data)
@@ -105,7 +105,7 @@ class Invalid(BaseApi):
         occMeasure_serial = list[0]["serialNum"]  # 获取要添加的预防措施serialNum
         data = {
             "method": "post",
-            "url": "/knowledge_end/invalidMode/addInvalidMeasure",
+            "url": "/gateway/fmea-knowledge/invalidMode/addInvalidMeasure",
             "json": [{
                 "invalidmodeId": invalid_serial,
                 "measureId": occMeasure_serial,
@@ -133,7 +133,7 @@ class Invalid(BaseApi):
         invalid_measure_serial = list[0]["invalidMeasureList"][0]["serialNum"]
         data = {
             "method": "post",
-            "url": "/knowledge_end/invalidMode/deleteInvalidMeasure",
+            "url": "/gateway/fmea-knowledge/invalidMode/deleteInvalidMeasure",
             "data": invalid_measure_serial
         }
         res = self.send(data)

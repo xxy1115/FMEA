@@ -14,7 +14,7 @@ class getUserInfo(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/fmea/user/info"
+            "url": "/gateway/fmea-system/user/info"
         }
         res = self.send(data)
         if res.status_code != 200:

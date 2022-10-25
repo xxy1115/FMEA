@@ -18,7 +18,7 @@ class processFeature(BaseApi):
         enFeature = f'PC{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/processFeatureCategory/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/processFeatureCategory/saveOrUpdate",
             "json": {
                 "elementType": elementType,
                 "enFeature": enFeature,
@@ -42,7 +42,7 @@ class processFeature(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/processFeatureCategory/delete",
+            "url": "/gateway/fmea-knowledge/processFeatureCategory/delete",
             "data": ei_serial
         }
         res = self.send(data)

@@ -14,7 +14,7 @@ class getMeasureD(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/detMeasure/list",
+            "url": "/gateway/fmea-knowledge/detMeasure/list",
             "json": {
                 "applicableObject": "D",
                 "customers": [],

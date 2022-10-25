@@ -9,7 +9,7 @@ class DfmeaTree(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/fmea/dfmeaTree/getDfmeaTreeBySerialNum",
+            "url": "/gateway/fmea-system/dfmeaTree/getDfmeaTreeBySerialNum",
             "params": {"serialNum": serial_num}
         }
         res = self.send(data)

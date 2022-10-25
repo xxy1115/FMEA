@@ -9,7 +9,7 @@ class selectProductByPptSerial(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/main_data_end/product/selectProductByPptSerial",
+            "url": "/gateway/fmea-maindata/product/selectProductByPptSerial",
             "params": {
                 "pptSerial": ppt_serial
             }

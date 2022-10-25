@@ -18,7 +18,7 @@ class procedureElement(BaseApi):
         enElement = f'PE{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/procedureElement/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/procedureElement/saveOrUpdate",
             "json": {
                 "element": element,
                 "elementType": elementType,
@@ -43,7 +43,7 @@ class procedureElement(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/procedureElement/delete",
+            "url": "/gateway/fmea-knowledge/procedureElement/delete",
             "data": pe_serial
         }
         res = self.send(data)

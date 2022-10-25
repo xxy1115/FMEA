@@ -20,7 +20,7 @@ class Functions(BaseApi):
         function = f'功能{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/function/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/function/saveOrUpdate",
             "json": {
                 "category": category,
                 "customers": customers,
@@ -52,7 +52,7 @@ class Functions(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/function/delete",
+            "url": "/gateway/fmea-knowledge/function/delete",
             "data": function_serial
         }
         res = self.send(data)
@@ -73,7 +73,7 @@ class Functions(BaseApi):
         invalid_serial = list[0]["serialNum"]  # 获取要添加的失效serialNum
         data = {
             "method": "post",
-            "url": "/knowledge_end/function/addFunctionInvalid",
+            "url": "/gateway/fmea-knowledge/function/addFunctionInvalid",
             "json": [{
                 "functionSerial": function_serial,
                 "invalidSerial": invalid_serial,
@@ -97,7 +97,7 @@ class Functions(BaseApi):
         function_invalid_serial = list[0]["invalidList"][0]["functionInvalidSerial"]
         data = {
             "method": "post",
-            "url": "/knowledge_end/function/deleteFunctionInvalid",
+            "url": "/gateway/fmea-knowledge/function/deleteFunctionInvalid",
             "data": function_invalid_serial
         }
         res = self.send(data)

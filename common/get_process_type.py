@@ -14,7 +14,7 @@ class getProcessType(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/fmea/processTypeIcon/getList"
+            "url": "/gateway/fmea-system/processTypeIcon/getList"
         }
         res = self.send(data)
         if res.status_code != 200:

@@ -4,6 +4,7 @@ import allure
 
 from common.get_product import getProduct
 from common.login import Login
+from libs.dfmea.delete_dfmea import deleteDfmea
 from libs.dfmea.feature_nodes_update import featureNodesUpdate
 from libs.dfmea.function_nodes_update import functionNodesUpdate
 from libs.dfmea.invalid_nodes_update import invalidNodesUpdate
@@ -21,7 +22,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = "1681"
+    user_id = 0
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -293,3 +294,9 @@ class TestCase1:
                                                      ppt_serial)
         pytest.assume(res, "接口响应失败")
         pytest.assume(res["flag"], "删除探测措施失败")
+
+    @allure.title("删除DFMEA")
+    def test_27(self):
+        project_serial = TestCase1.dfmea_info["project"]["serialNum"]
+        res = deleteDfmea().delete_dfmea(TestCase1.token, project_serial)
+        pytest.assume(res["flag"], "删除DFMEA失败")

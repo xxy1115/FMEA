@@ -14,7 +14,7 @@ class getFunctionGroup(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/main_data_end/functionGrouping/list",
+            "url": "/gateway/fmea-maindata/functionGrouping/list",
             "json": {
                 "endTime": "",
                 "experienceType": "",

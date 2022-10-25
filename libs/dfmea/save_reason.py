@@ -19,7 +19,7 @@ class saveReason(BaseApi):
         enInvalidMode = f'InvalidReason{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/invalidMode/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/invalidMode/saveOrUpdate",
             "json": {
                 "applicableObject": applicableObject,
                 "category": category,
@@ -50,7 +50,7 @@ class saveReason(BaseApi):
 
         data = {
             "method": "post",
-            "url": "/fmea/projectInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-system/projectInvalid/saveOrUpdate",
             "json": [{
                 "edituser": 2,
                 "invalidmodeName": invalidmode,
@@ -77,7 +77,7 @@ class saveReason(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/ktNew/forEachSaveGnjmjzPfRelation",
+            "url": "/gateway/fmea-system/ktNew/forEachSaveGnjmjzPfRelation",
             "json": {
                 "parentPfeSerial": pfe_serial,
                 "pfSerials": [],
@@ -94,7 +94,7 @@ class saveReason(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/fmea/invalidNet/saveProjectInvalidNets",
+            "url": "/gateway/fmea-system/invalidNet/saveProjectInvalidNets",
             "json": [{
                 "det": "10",
                 "edituser": "2",

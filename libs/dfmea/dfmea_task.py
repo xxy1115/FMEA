@@ -12,7 +12,7 @@ class DfmeaTask(BaseApi):
         # task_num = self.get_max_num()
         data = {
             "method": "post",
-            "url": "/fmea/projectTask/saveOrUpdate",
+            "url": "/gateway/fmea-system/projectTask/saveOrUpdate",
             "json": {
                 "deliverable": project["deliverable"],
                 "planEndDate": project["enddate"],

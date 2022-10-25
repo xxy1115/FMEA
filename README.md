@@ -16,3 +16,7 @@ pytest_cases>pytest test_01.py --alluredir ./result -vs
 allure serve ./result
 #生成报告-指定生成到report文件夹
 allure generate ./result -o report
+
+F--用例失败
+E--error
+.--成功

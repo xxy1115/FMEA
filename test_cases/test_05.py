@@ -5,6 +5,7 @@ import allure
 from common.get_product import getProduct
 from common.login import Login
 from libs.dfmea.bom import BOM
+from libs.dfmea.delete_dfmea import deleteDfmea
 from libs.dfmea.dfmea_task import DfmeaTask
 from libs.dfmea.add_dfmea import addDFMEA
 from common.get_dict import getDict
@@ -15,7 +16,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 1681
+    user_id = 0
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -98,8 +99,8 @@ class TestCase1:
         project_serial = TestCase1.dfmea_info["productTree"]["projectSerial"]
         ppt_serial = TestCase1.dfmea_info["productTree"]["serialNum"]
         bom_serial = TestCase1.bom_list[3]["serialNum"]
-        flag = BOM().import_bom(TestCase1.token, project_serial, bom_serial, ppt_serial)
-        pytest.assume(flag, "导入BOM失败")
+        res = BOM().import_bom(TestCase1.token, project_serial, bom_serial, ppt_serial)
+        pytest.assume(res["flag"] == "1", "导入BOM失败")
 
     @allure.title("通过项目编号获取BOM列表")
     def test_8(self):
@@ -134,10 +135,20 @@ class TestCase1:
                                                     project, role_type)
             pytest.assume(flag, "创建DFMEA任务失败")
 
-
     @allure.title("导入Excel")
     def test_10(self):
         project_serial = TestCase1.dfmea_info2["productTree"]["projectSerial"]
         # project_serial = "36362ed1b514487182852ed072651dce"
         res = BOM().import_excel(TestCase1.token, project_serial)
         pytest.assume(res == "success", "Excel导入失败")
+
+    @allure.title("删除DFMEA")
+    def test_11(self):
+        project_serial1 = TestCase1.dfmea_info["project"]["serialNum"]
+        project_serial2 = TestCase1.dfmea_info2["project"]["serialNum"]
+        with allure.step("step1:删除第一个DFMEA"):
+            res = deleteDfmea().delete_dfmea(TestCase1.token, project_serial1)
+            pytest.assume(res["flag"], "删除DFMEA失败")
+        with allure.step("step2:删除第二个DFMEA"):
+            res = deleteDfmea().delete_dfmea(TestCase1.token, project_serial2)
+            pytest.assume(res["flag"], "删除DFMEA失败")

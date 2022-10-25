@@ -16,7 +16,7 @@ class elementFeaNodesUpdate(BaseApi):
         res = getProcessFeature().get_process_feature(token, product_type)
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectFeature/saveOrUpdate",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectFeature/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -41,7 +41,7 @@ class elementFeaNodesUpdate(BaseApi):
         processFeatureSerial = res[3]["serialNum"]
         data = {
             "method": "post",
-            "url": "/pfmea_end/pfmeaProjectFeature/updateProjectFeature",
+            "url": "/gateway/fmea-pfmea/pfmeaProjectFeature/updateProjectFeature",
             "json": {
                 "enFeature": enFeature,
                 "feature": feature,
@@ -63,7 +63,7 @@ class elementFeaNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": f"/pfmea_end/pfmeaProjectFeature/delete",
+            "url": f"/gateway/fmea-pfmea/pfmeaProjectFeature/delete",
             "data": serial_num
         }
         res = self.send(data)

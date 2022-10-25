@@ -65,7 +65,7 @@ class addPFMEA(BaseApi):
     def get_column_list(self):
         data = {
             "method": "get",
-            "url": "/fmea/tableColumn/getColumnList",
+            "url": "/gateway/fmea-system/tableColumn/getColumnList",
             "params": {"category": "addPfmea"}
         }
         res = self.send(data)

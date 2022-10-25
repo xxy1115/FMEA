@@ -7,6 +7,7 @@ import allure
 from common.get_product import getProduct
 from common.login import Login
 from libs.dfmea.batch_invalid_net_update import batchInvalidNetUpdate
+from libs.dfmea.delete_dfmea import deleteDfmea
 from libs.dfmea.export_report import exportReport
 from libs.dfmea.function_nodes_update import functionNodesUpdate
 from libs.dfmea.invalid_nodes_update import invalidNodesUpdate
@@ -24,7 +25,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 1681
+    user_id = 0
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -165,7 +166,7 @@ class TestCase1:
         pytest.assume(res, "添加失效节点失败")
         TestCase1.added_invalid3_nodes = res
 
-    @allure.title("添加失效关联")
+    @allure.title("功能失效矩阵中添加失效关联")
     def test_14(self):
         first = TestCase1.added_invalid1_nodes[0]  # 获取根节点失效返回信息
         second = TestCase1.added_invalid2_nodes[0]  # 获取二级产品失效返回信息
@@ -212,8 +213,7 @@ class TestCase1:
 
     @allure.title("导出DFMEA报告")
     def test_18(self):
-        # ppt_serial = "6e522b78c6804a0b836f9ddc20bd62fc"
-        exportReport().del_last_report()
+        exportReport().del_last_report()  # 删除上次生成的DFMEA报告
         ppt_serial = TestCase1.added_product2_nodes[0]["serialNum"]  # 获取第二个产品节点serialNum
         with allure.step("step1:导出DFMEA报告--pdf/中文/标准版/单行"):
             exportReport().export_report(TestCase1.token, ppt_serial, "pdf", 1, "0_1_2_3_4_5_6_7", 1, 2,
@@ -231,3 +231,9 @@ class TestCase1:
             exportReport().export_report(TestCase1.token, ppt_serial, "excel", 1, "0_1_2_3_4_5_6_7", 3, 1,
                                          "dfmea_report4.xls")
             pytest.assume(os.path.exists("dfmea_report/dfmea_report4.xls"), "导出失败")
+
+    @allure.title("删除DFMEA")
+    def test_19(self):
+        project_serial = TestCase1.dfmea_info["project"]["serialNum"]
+        res = deleteDfmea().delete_dfmea(TestCase1.token, project_serial)
+        pytest.assume(res["flag"], "删除DFMEA失败")

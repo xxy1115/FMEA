@@ -18,7 +18,7 @@ class procedureFunction(BaseApi):
         enFunction = f'PF{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/procedureFunction/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/procedureFunction/saveOrUpdate",
             "json": {
                 "enFunction": enFunction,
                 "function": function,
@@ -43,7 +43,7 @@ class procedureFunction(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/procedureFunction/delete",
+            "url": "/gateway/fmea-knowledge/procedureFunction/delete",
             "data": pf_serial
         }
         res = self.send(data)

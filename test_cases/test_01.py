@@ -4,6 +4,9 @@ import allure
 
 from common.get_product import getProduct
 from common.login import Login
+from libs.delete_program import deleteProgram
+from libs.dfmea.delete_dfmea import deleteDfmea
+from libs.select_program_by_Id import selectProgramById
 from libs.dfmea.dfmea_list import DfmeaList
 from libs.dfmea.dfmea_task import DfmeaTask
 from libs.program_add import addProgram
@@ -16,7 +19,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = ""
+    user_id = 0
     dicts = {}
     program_serial = ""
     program_num = ""  # 项目编号
@@ -63,7 +66,12 @@ class TestCase1:
                                            TestCase1.dicts["001"])  # 010-车型,001-平台
             pytest.assume(res, "新建项目失败")
             TestCase1.program_serial, TestCase1.program_num = res  # 项目序列号、项目编号存入类变量
-        with allure.step("step3:项目列表查询"):
+        with allure.step("step3:通过ID选择项目"):
+            res = selectProgramById().select_program_by_Id(TestCase1.token, TestCase1.program_serial)
+            pytest.assume(res, "通过ID选择项目失败")
+            pytest.assume(res["program"]["programNum"] == TestCase1.program_num, "项目编号不一致")
+
+        with allure.step("step4:项目列表查询"):
             res = programList().program_list(TestCase1.token, product_type, TestCase1.program_num)
             pytest.assume(res, "项目列表查询接口错误")
             pytest.assume(len(res) > 0, "项目列表查询结果为空")
@@ -89,7 +97,7 @@ class TestCase1:
                                        self.test_data["user"]["user01"][0],
                                        TestCase1.dicts["001"], TestCase1.dicts["006"],
                                        TestCase1.dicts["011"], TestCase1.dicts["049"])  # 001平台 006客户 011保密等级 049模块
-            pytest.assume(res, "新建DFMEA失败")
+            pytest.assume(res["flag"], "新建DFMEA失败")
             TestCase1.dfmea_info = res
         with allure.step("step4:创建任务"):
             project = TestCase1.dfmea_info["project"]
@@ -106,3 +114,14 @@ class TestCase1:
             pytest.assume(res[0]["projectNum"] == project["projectNum"], "FMEA编号查询结果错误")
             pytest.assume(res[0]["projectName"] == project["projectName"], "FMEA名称查询结果错误")
             # print(json.dumps(res.json()["data"], indent=2))
+
+    @allure.title("删除DFMEA")
+    def test_6(self):
+        project_serial = TestCase1.dfmea_info["project"]["serialNum"]
+        res = deleteDfmea().delete_dfmea(TestCase1.token, project_serial)
+        pytest.assume(res["flag"], "删除DFMEA失败")
+
+    @allure.title("删除项目")
+    def test_7(self):
+        res = deleteProgram().delete_program(TestCase1.token, TestCase1.program_serial)
+        pytest.assume(res["flag"], "删除项目失败")

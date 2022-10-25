@@ -18,7 +18,7 @@ class processProcedure(BaseApi):
         enProcessProcedure = f'PP{cur_time}'
         data = {
             "method": "post",
-            "url": "/knowledge_end/processProcedure/saveOrUpdate",
+            "url": "/gateway/fmea-knowledge/processProcedure/saveOrUpdate",
             "json": {
                 "enProcessProcedure": enProcessProcedure,
                 "factoryCode": "工厂代码",
@@ -45,7 +45,7 @@ class processProcedure(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/processProcedure/delete",
+            "url": "/gateway/fmea-knowledge/processProcedure/delete",
             "data": pp_serial
         }
         res = self.send(data)

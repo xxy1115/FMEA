@@ -7,6 +7,13 @@ from common.base import BaseApi
 class batchInvalidNetUpdate(BaseApi):
     # 仅支持一对失效关联
     def batch_invalid_add(self, token, first, second):
+        """
+        功能失效矩阵中添加失效并保存
+        :param token:
+        :param first:
+        :param second:
+        :return:
+        """
         self.token = token
         first_PfSerial = first["pfSerial"]
         first_PidSerial = first["serialNum"]
@@ -17,7 +24,7 @@ class batchInvalidNetUpdate(BaseApi):
         second_PptSerial = second["pptSerial"]  # currentSerial和nextSerial传同样值
         data = {
             "method": "post",
-            "url": "/fmea/invalidNet/saveBatchInvalidNet",
+            "url": "/gateway/fmea-system/invalidNet/saveBatchInvalidNet",
             "json": [{
                 "currentSerial": second_PptSerial,
                 "firstPfSerial": first_PfSerial,
@@ -39,7 +46,7 @@ class batchInvalidNetUpdate(BaseApi):
 
     def batch_invalid_del(self, token, first_PidSerial, second_PidSerial):
         self.token = token
-        url = f'/fmea/invalidNet/deleteConsequncesByFirstPidSerialAndSecondPidSerial/{first_PidSerial}/{second_PidSerial}'
+        url = f'/gateway/fmea-system/invalidNet/deleteConsequncesByFirstPidSerialAndSecondPidSerial/{first_PidSerial}/{second_PidSerial}'
         data = {
             "method": "get",
             "url": url
