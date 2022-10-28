@@ -1,6 +1,6 @@
 user:
   user01:
-    - "cindy3"
+    - "auto_tester"
     - "Fmeamaster!"
 project:
   "api":

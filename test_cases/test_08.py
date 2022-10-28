@@ -25,13 +25,12 @@ from libs.knowledge.process_feature import processFeature
 from libs.knowledge.process_procedure import processProcedure
 from libs.knowledge.standard import Standard
 from libs.knowledge.system_response import systemResponse
+from utils.yamlControl import parse_yaml
 
 
 class TestCase1:
     token = ""
     user_id = 0
-    token2 = ""
-    user_id2 = 0
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -39,15 +38,14 @@ class TestCase1:
     applicableObject = "13e553bc150b4ca58e174ce67dd158cb"  # 适用对象（D）
 
     def setup_class(self):
-        self.user01 = ["cindy3", "Fmeamaster!"]
-        self.user02 = ["cindy1", "Fmeamaster!"]
+        self.test_data = parse_yaml("../data/data_04.yaml")
 
     def teardown_class(self):
         pass
 
     @allure.title("登录")
     def test_1(self):
-        res = Login().login(self.user01)
+        res = Login().login(self.test_data["user"]["user01"])
         pytest.assume(res, "登录失败")
         TestCase1.token = res["token"]
         TestCase1.user_id = res["userId"]
@@ -324,14 +322,13 @@ class TestCase1:
             pytest.assume(res["flag"], "创建产品功能失败")
             function_serial = res["serialNum"]
         with allure.step("step2:提交审核"):
-            res = functionApply().function_apply(TestCase1.token, self.user01[0], function_serial, function_name,
+            res = functionApply().function_apply(TestCase1.token, self.test_data["user"]["user01"][0], function_serial,
+                                                 function_name,
                                                  TestCase1.product_type)
             pytest.assume(res["flag"], "提交审核失败")
         with allure.step("step3:审核同意"):
-            res = Login().login(self.user02)
-            pytest.assume(res, "登录失败")
-            TestCase1.token2 = res["token"]
-            res = functionApply().function_approve(TestCase1.token2, self.user01[0], function_serial, function_name,
+            res = functionApply().function_approve(TestCase1.token, self.test_data["user"]["user01"][0],
+                                                   function_serial, function_name,
                                                    TestCase1.product_type)
             pytest.assume(res["flag"], "审核同意失败")
         with allure.step("step4:删除产品功能"):
