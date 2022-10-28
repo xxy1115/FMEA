@@ -1,10 +1,13 @@
 # -*- coding: UTF-8 -*-
+import os
+
 import pytest
 import allure
 
 from common.get_product import getProduct
 from common.login import Login
 from libs.CR.cr_change_status import crChangeStatus
+from libs.CR.cr_export import crExport
 from libs.CR.cr_feature_update import crFeatureUpdate
 from libs.CR.cr_function_update import crFunctionUpdate
 from libs.CR.cr_invalid_update import crInvalidUpdate
@@ -24,7 +27,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     """客户要求"""
-    token = "75ccb1dd22124dbf94e01225550d0760"
+    token = ""
     user_id = 1681
     dicts = {}
     user_info = {}
@@ -35,6 +38,7 @@ class TestCase1:
 
     def setup_class(self):
         self.test_data = parse_yaml("../data/data_04.yaml")
+        crExport().del_last_export()  # 删除上次导出的客户要求
 
     def teardown_class(self):
         pass
@@ -102,10 +106,13 @@ class TestCase1:
         with allure.step("step3:saveOrUpdateCustomerRequestChangeStatus"):
             res = crChangeStatus().cr_change_status1(TestCase1.token, project_serial)
             pytest.assume(res["flag"], "saveOrUpdateCustomerRequestChangeStatus失败")
-        with allure.step("step4:删除外部界面关系"):
+        with allure.step("step4:客户要求导出"):
+            crExport().cr_export(TestCase1.token, project_serial, "客户要求-客户界面.xls")
+            pytest.assume(os.path.exists("customer_request/客户要求-客户界面.xls"), "导出失败")
+        with allure.step("step5:删除外部界面关系"):
             res = exteralIFUpdate().del_exteral_IF(TestCase1.token, pif_serial)
             pytest.assume(res, "删除外部界面关系失败")
-        with allure.step("step5:selectUpProduct"):
+        with allure.step("step6:selectUpProduct"):
             res = selectUpProduct().select_up_product(TestCase1.token, project_serial)
             pytest.assume(res, "selectUpProduct失败")
 
@@ -165,14 +172,20 @@ class TestCase1:
             pytest.assume(res, "失败")
             TestCase1.change_serial = res["changeStatus"]["serialNum"]
 
-    @allure.title("客户要求-发布")
+    @allure.title("客户要求导出")
     def test_10(self):
+        project_serial = TestCase1.dfmea_info["project"]["serialNum"]
+        crExport().cr_export(TestCase1.token, project_serial, "客户要求-上级要求.xls")
+        pytest.assume(os.path.exists("customer_request/客户要求-上级要求.xls"), "导出失败")
+
+    @allure.title("客户要求-发布")
+    def test_11(self):
         project_serial = TestCase1.dfmea_info["project"]["serialNum"]
         res = crPublish().cr_publish(TestCase1.token, project_serial)
         pytest.assume(res["flag"], "客户要求发布失败")
 
     @allure.title("客户要求-更改状态")
-    def test_11(self):
+    def test_12(self):
         project_serial = TestCase1.dfmea_info["project"]["serialNum"]
         res = crChangeStatus().cr_change_status(TestCase1.token, TestCase1.user_id, project_serial,
                                                 TestCase1.change_serial)
@@ -194,12 +207,12 @@ class TestCase1:
     #     TestCase1.added_invalid_nodes = res
 
     @allure.title("客户要求-删除产品")
-    def test_12(self):
+    def test_13(self):
         res = crProductUpdate().del_cr_product(TestCase1.token, TestCase1.ppt_serial)
         pytest.assume(res["flag"] == "1", "删除产品失败")
 
     @allure.title("删除DFMEA")
-    def test_20(self):
+    def test_14(self):
         project_serial = TestCase1.dfmea_info["project"]["serialNum"]
         res = deleteDfmea().delete_dfmea(TestCase1.token, project_serial)
         pytest.assume(res["flag"], "删除DFMEA失败")

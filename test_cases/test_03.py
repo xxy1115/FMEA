@@ -6,6 +6,8 @@ import allure
 
 from common.get_product import getProduct
 from common.login import Login
+from common.select_invalid_reason import selectInvalidReasonList
+from common.select_invalid_result import selectInvalidResultList
 from libs.dfmea.batch_invalid_net_update import batchInvalidNetUpdate
 from libs.dfmea.delete_dfmea import deleteDfmea
 from libs.dfmea.export_report import exportReport
@@ -25,7 +27,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 0
+    user_id = 1681
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -182,12 +184,24 @@ class TestCase1:
 
     @allure.title("添加失效原因--下级零件失效")
     def test_16(self):
-        with allure.step("step1:添加失效原因--下级零件失效"):
+        pf_serial = TestCase1.added_function2_nodes[0]["serialNum"]
+        ppt_serial = TestCase1.added_product2_nodes[0]["serialNum"]
+        with allure.step("step1:--查找零件原因"):
+            res = selectInvalidReasonList().select_invalid_reason_list_by_product(TestCase1.token,
+                                                                                  TestCase1.product_type, pf_serial,
+                                                                                  ppt_serial)
+            pytest.assume(len(res) > 0, "查找零件原因失败")
+        with allure.step("step2:--查找界面原因"):
+            res = selectInvalidReasonList().select_reason_list_by_inner_interface(TestCase1.token,
+                                                                                  TestCase1.product_type, pf_serial,
+                                                                                  ppt_serial)
+            pytest.assume(res, "查找界面原因失败")
+        with allure.step("step3:添加失效原因--下级零件失效"):
             first = TestCase1.added_invalid2_nodes[0]  # 获取二级产品失效返回信息
             second = TestCase1.added_invalid3_nodes[0]  # 获取三级产品失效返回信息
             res = saveInvalidNets().save_invalid_nets(TestCase1.token, first, second)
             pytest.assume(res, "添加零件失效原因失败")
-        with allure.step("step2:保存功能关联"):
+        with allure.step("step4:添加失效原因--保存功能关联"):
             first_pf_serial = first["pfSerial"]
             second_pf_serial = second["pfSerial"]
             second_pfe_serial = second["pfeSerial"]
@@ -195,15 +209,27 @@ class TestCase1:
                                                     second_pfe_serial)
             pytest.assume(res, "保存功能关联失败")
 
-    @allure.title("添加失效后果--上级零件失效")
+    @allure.title("添加失效后果--选择上级后果")
     def test_17(self):
-        with allure.step("step1:添加失效后果--上级零件失效"):
+        pf_serial = TestCase1.added_function2_nodes[0]["serialNum"]
+        ppt_serial = TestCase1.added_product2_nodes[0]["serialNum"]
+        with allure.step("step1:--查找上级后果"):
+            res = selectInvalidResultList().select_invalid_reason_list_by_product(TestCase1.token,
+                                                                                  TestCase1.product_type, pf_serial,
+                                                                                  ppt_serial)
+            pytest.assume(len(res) > 0, "查找上级后果失败")
+        with allure.step("step2:--查找界面原因"):
+            res = selectInvalidResultList().select_invalid_result_list_by_inner_interface(TestCase1.token,
+                                                                                  TestCase1.product_type, pf_serial,
+                                                                                  ppt_serial)
+            pytest.assume(res, "查找界面原因失败")
+        with allure.step("step3:添加失效后果--上级零件失效"):
             consequence_type = "0271"  # 字典027中name="高一层次影响（对上级影响）"
             first = TestCase1.added_invalid1_nodes[0]  # 获取一级产品失效返回信息
             second = TestCase1.added_invalid2_nodes[0]  # 获取二级产品失效返回信息
             res = saveInvalidNets().save_invalid_nets(TestCase1.token, first, second, 1, consequence_type)
             pytest.assume(res, "添加零件失效后果失败")
-        with allure.step("step2:保存功能关联"):
+        with allure.step("step4:保存功能关联"):
             first_pf_serial = first["pfSerial"]
             first_pfe_serial = first["pfeSerial"]
             second_pf_serial = second["pfSerial"]
