@@ -27,7 +27,7 @@ from utils.yamlControl import parse_yaml
 
 class TestCase1:
     token = ""
-    user_id = 1681
+    user_id = 0
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
@@ -195,7 +195,7 @@ class TestCase1:
             res = selectInvalidReasonList().select_reason_list_by_inner_interface(TestCase1.token,
                                                                                   TestCase1.product_type, pf_serial,
                                                                                   ppt_serial)
-            pytest.assume(res, "查找界面原因失败")
+            pytest.assume(res == [], "查找界面原因失败")
         with allure.step("step3:添加失效原因--下级零件失效"):
             first = TestCase1.added_invalid2_nodes[0]  # 获取二级产品失效返回信息
             second = TestCase1.added_invalid3_nodes[0]  # 获取三级产品失效返回信息
@@ -220,9 +220,10 @@ class TestCase1:
             pytest.assume(len(res) > 0, "查找上级后果失败")
         with allure.step("step2:--查找界面原因"):
             res = selectInvalidResultList().select_invalid_result_list_by_inner_interface(TestCase1.token,
-                                                                                  TestCase1.product_type, pf_serial,
-                                                                                  ppt_serial)
-            pytest.assume(res, "查找界面原因失败")
+                                                                                          TestCase1.product_type,
+                                                                                          pf_serial,
+                                                                                          ppt_serial)
+            pytest.assume(res == [], "查找界面原因失败")
         with allure.step("step3:添加失效后果--上级零件失效"):
             consequence_type = "0271"  # 字典027中name="高一层次影响（对上级影响）"
             first = TestCase1.added_invalid1_nodes[0]  # 获取一级产品失效返回信息
