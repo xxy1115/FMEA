@@ -28,7 +28,7 @@ from utils.yamlControl import parse_yaml
 class TestCase1:
     """客户要求"""
     token = ""
-    user_id = 1681
+    user_id = 0
     dicts = {}
     user_info = {}
     product_type = []  # 用户产品类别权限列表
