@@ -27,7 +27,7 @@ from libs.knowledge.standard import Standard
 from libs.knowledge.system_response import systemResponse
 from utils.yamlControl import parse_yaml
 
-
+@allure.feature("知识库")
 class TestCase1:
     token = ""
     user_id = 0

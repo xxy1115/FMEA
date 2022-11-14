@@ -71,3 +71,25 @@ class addPFMEA(BaseApi):
         res = self.send(data)
         column_list = json.loads(res.json()["data"])["items"]
         return column_list
+
+    def save_template(self, token, ppt_serial, project_serial, project_name, procedure_name):
+        self.token = token
+        data = {
+            "method": "post",
+            "url": "/gateway/fmea-pfmea/pfmeaTemplate/saveOrUpdateTemplate",
+            "json": {
+                "pptSerialNum": ppt_serial,
+                "projectType": "pfmea",
+                "sourceNodeName": procedure_name,
+                "sourceProjectName": project_name,
+                "sourceType": "1",
+                "templateName": project_name,
+                "templateProjectName": project_name,
+                "templateProjectSerialNum": project_serial
+            }
+        }
+        res = self.send(data)
+        if res.status_code != 200:
+            return False
+        res_data = res.json()["data"]
+        return res_data

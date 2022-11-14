@@ -11,7 +11,7 @@ class procedureInvalidNodesUpdate(BaseApi):
     def add_procedure_invalid(self, token, product_type, ppp_serial, serial_num, num):
         """
         添加工序功能的失效--从失效库选择多个失效
-        :param num: 添加失效的个数-3
+        :param num: 添加失效的个数
         """
         self.token = token
         res = getInvalid().get_pfmea_invalid(token, product_type)

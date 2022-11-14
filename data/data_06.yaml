@@ -36,6 +36,44 @@ project:
       "projectNum": ""
       "relationFileList": [ ]
       "secrecyGrade": ""
+      "uploadAttachmentList": [ ]
+      "sopDate": "2022-9-15"
+      "startdate": "2022-9-15"
+project_template:
+  "api":
+    "method": "post"
+    "url": "/gateway/fmea-pfmea/pfmeaProject/saveOrUpdate"
+    "json":
+      "branchName": ""
+      "columns": [ ]
+      "customer": ""
+      "customerNeedFile": [ ]
+      "deliverable": "PFMEA-ControlPlan-PfmeaKCDS"
+      "enProcedureName": ""
+      "enProgramName": ""
+      "enddate": "2025-09-30"
+      "experienceFile": [ ]
+      "lineBodyName": ""
+      "owner": ""
+      "ownerName": ""
+      "pfmeaRelatedProducts": [ ]
+      "procedureName": ""
+      "product": { }
+      "productId": ""
+      "productName": ""
+      "productNum": ""
+      "productNums": ""
+      "programName": ""
+      "programNum": ""
+      "programOwner": ""
+      "programOwnerName": ""
+      "programSerial": ""
+      "projectDescription": ""
+      "projectName": ""
+      "projectNum": ""
+      "projectType": "template"
+      "relationFileList": [ ]
+      "secrecyGrade": ""
       "sopDate": "2022-9-15"
       "startdate": "2022-9-15"
       "uploadAttachmentList": [ ]

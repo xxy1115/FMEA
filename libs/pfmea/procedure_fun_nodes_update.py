@@ -10,7 +10,7 @@ class procedureFunNodesUpdate(BaseApi):
     def add_procedure_fun(self, token, product_type, pp_serial, num):
         """
         添加工序功能--从工序功能库选择多个工序功能
-        :param num: 添加工序功能的个数-3
+        :param num: 添加工序功能的个数
         """
         self.token = token
         res = getProcedureFun().get_procedure_fun(token, product_type)
