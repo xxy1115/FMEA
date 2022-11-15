@@ -6,16 +6,16 @@ from common.get_max import getMax
 from common.get_max_num import getMaxNum
 
 
-class addPFMEA(BaseApi):
-    def add_pfmea(self, data, token, user_id, user_name, product, related_product, program, procedureName,
+class addPFMEATemplate(BaseApi):
+    def add_pfmea_template(self, data, token, user_id, user_name, product, related_product, program, procedureName,
                   enProcedureName, customer, secrecyGrade):
         """
-        新建PFMEA
+        新建基础PFMEA
         :param data:
         :return:
         """
         self.token = token
-        project_num = getMaxNum().get_max_num(token, "pfmea_project", "project_num", "PF")
+        project_num = getMaxNum().get_max_num(token, "pfmea_project", "project_num", "TP")
         pfd_num = getMax().get_max(token, "sys_table_value", "value", "PFD")
         related_products = [{"productId": related_product["productId"]}]
         data["api"]["json"]["customer"] = customer  # 客户
@@ -71,3 +71,25 @@ class addPFMEA(BaseApi):
         res = self.send(data)
         column_list = json.loads(res.json()["data"])["items"]
         return column_list
+
+    def save_template(self, token, ppt_serial, project_serial, project_name, procedure_name):
+        self.token = token
+        data = {
+            "method": "post",
+            "url": "/gateway/fmea-pfmea/pfmeaTemplate/saveOrUpdateTemplate",
+            "json": {
+                "pptSerialNum": ppt_serial,
+                "projectType": "pfmea",
+                "sourceNodeName": procedure_name,
+                "sourceProjectName": project_name,
+                "sourceType": "1",
+                "templateName": project_name,
+                "templateProjectName": project_name,
+                "templateProjectSerialNum": project_serial
+            }
+        }
+        res = self.send(data)
+        if res.status_code != 200:
+            return False
+        res_data = res.json()["data"]
+        return res_data

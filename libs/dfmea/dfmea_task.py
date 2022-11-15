@@ -15,6 +15,8 @@ class DfmeaTask(BaseApi):
             "url": "/gateway/fmea-system/projectTask/saveOrUpdate",
             "json": {
                 "deliverable": project["deliverable"],
+                "isApproval": "1",
+                "isProcessApproval": "1",
                 "planEndDate": project["enddate"],
                 "planStartDate": project["startdate"],
                 "pptSerial": project["pptSerial"],

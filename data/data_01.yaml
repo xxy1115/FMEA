@@ -36,3 +36,40 @@ project:
       "sopDate": ""
       "uploadAttachmentList": [ ]
       "startdate": "2022-07-10T16:00:00.000Z"
+project_template:
+  "api":
+    "method": "post"
+    "url": "/gateway/fmea-system/project/saveOrUpdate"
+    "json":
+      "columns": [ ]
+      "customer": ""
+      "customerNeedFile": [ ]
+      "deliverable": "DFMEA-KCDS-DVP"
+      "enProgramName": ""
+      "enddate": "2022-07-30T16:00:00.000Z"
+      "experienceFile": [ ]
+      "instituteName": ""
+      "module": ""
+      "owner": ""
+      "ownerName": ""
+      "platform": ""
+      "processInitiator": ""
+      "processInitiatorId": ""
+      "product": { }
+      "productId": ""
+      "productName": ""
+      "productNum": ""
+      "programName": ""
+      "programNum": ""
+      "programOwner": ""
+      "programOwnerName": ""
+      "programSerial": ""
+      "projectName": ""
+      "projectNum": ""
+      "projectType": "template"
+      "relationFileList": [ ]
+      "remark": ""
+      "secrecyGrade": ""
+      "sopDate": ""
+      "uploadAttachmentList": [ ]
+      "startdate": "2022-07-10T16:00:00.000Z"

@@ -8,6 +8,7 @@ from common.get_dict import getDict
 from common.get_user_info import getUserInfo
 from libs.dfmea.pfmea_tree import PfmeaTree
 from libs.pfmea.add_pfmea import addPFMEA
+from libs.pfmea.add_pfmea_template import addPFMEATemplate
 from libs.pfmea.delete_pfmea import deletePFMEA
 from libs.pfmea.pfmea_list import PfmeaList
 from libs.pfmea.pfmea_share import PfmeaShare
@@ -149,7 +150,7 @@ class TestCase1:
             pytest.assume(res, "产品信息接口失败")
             related_product = res[2]
         with allure.step("step4:新建PFMEA"):
-            res = addPFMEA().add_pfmea(self.test_data["project_template"], TestCase1.token, TestCase1.user_id,
+            res = addPFMEATemplate().add_pfmea_template(self.test_data["project_template"], TestCase1.token, TestCase1.user_id,
                                        self.test_data["user"]["user01"][0], product, related_product, program_obj,
                                        procedureName, enProcedureName, customer, secrecyGrade)
             pytest.assume(res, "新建PFMEA失败")
@@ -159,7 +160,7 @@ class TestCase1:
             project_serial = TestCase1.pfmea_template_info["projectProcedure"]["projectSerial"]
             project_name = TestCase1.pfmea_template_info["pfmeaProject"]["projectName"]
             procedure_name = TestCase1.pfmea_template_info["pfmeaProject"]["procedureName"]
-            res = addPFMEA().save_template(TestCase1.token, ppt_serial, project_serial, project_name, procedure_name)
+            res = addPFMEATemplate().save_template(TestCase1.token, ppt_serial, project_serial, project_name, procedure_name)
             pytest.assume(res["flag"] == 1, "保存模板失败")
         with allure.step("step6:创建任务"):
             projectProcedureSerial = TestCase1.pfmea_template_info["projectProcedure"]["serialNum"]
@@ -176,7 +177,7 @@ class TestCase1:
         res = PfmeaList().template_pfmea_list(TestCase1.token, TestCase1.user_id, TestCase1.product_type, project_num)
         pytest.assume(res, "基础PFMEA列表失败")
         pytest.assume(len(res) > 0, "基础PFMEA列表数据空")
-        pytest.assume(res[0]["productNum"] == TestCase1.pfmea_template_info["pfmeaProject"]["productNum"], "产品名称错误")
+        pytest.assume(res[0]["productNum"] == TestCase1.pfmea_template_info["pfmeaProject"]["productNum"], "产品编号错误")
         TestCase1.template_serial_num = res[0]["serialNum"]
 
     @allure.title("删除基础PFMEA")
