@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+import os
+
 import pytest
 import allure
 
@@ -9,16 +11,14 @@ from common.get_user_info import getUserInfo
 from libs.dfmea.pfmea_tree import PfmeaTree
 from libs.pfmea.add_pfmea import addPFMEA
 from libs.pfmea.delete_pfmea import deletePFMEA
-from libs.pfmea.element_fea_nodes_update import elementFeaNodesUpdate
 from libs.pfmea.element_fun_nodes_update import elementFunNodesUpdate
 from libs.pfmea.element_invalid_nodes_update import elementInvalidNodesUpdate
 from libs.pfmea.element_nodes_update import elementNodesUpdate
+from libs.pfmea.export_pfmea_report import exportPFMEAReport
 from libs.pfmea.invalid_parent_result import invalidParentResult
 from libs.pfmea.invalid_reason import invalidReason
 from libs.pfmea.invalid_result import invalidResult
-from libs.pfmea.measure_p_nodes_update import measurePNodesUpdate
 from libs.pfmea.pfmea_task import PfmeaTask
-from libs.pfmea.procedure_feature_nodes_update import procedureFeatureNodesUpdate
 from libs.pfmea.procedure_fun_nodes_update import procedureFunNodesUpdate
 from libs.pfmea.procedure_invalid_nodes_update import procedureInvalidNodesUpdate
 from libs.pfmea.procedure_nodes_update import procedureNodesUpdate
@@ -285,8 +285,37 @@ class TestCase1:
                                                         firstPidSerial, secondPfSerial, secondPidSerial, secondPpSerial)
             pytest.assume(res["flag"], "saveInvalidNets接口失败")
 
-    @allure.title("删除PFMEA")
+    @allure.title("导出PFMEA报告")
     def test_22(self):
+        exportPFMEAReport().del_last_report()  # 删除上次生成的DFMEA报告
+        ppp_serial = TestCase1.added_procedures_nodes[1]["serialNum"]  # 获取第二个工序节点serialNum
+        with allure.step("step1:导出PFMEA报告--pdf/中文/标准版/单行"):
+            exportPFMEAReport().export_pfmea_report(TestCase1.token, ppp_serial, "pdf", "1", "0_1_2_3_4_5_6_7_a", "1",
+                                                    "2", "pfmea_report1.pdf")
+            pytest.assume(os.path.exists("pfmea_report/pfmea_report1.pdf"), "导出失败")
+            report1 = os.stat("pfmea_report\pfmea_report1.pdf")
+            pytest.assume(report1.st_size > 0, "导出文件大小为0")
+        with allure.step("step2:导出PFMEA报告--excel/中文/标准版/单行"):
+            exportPFMEAReport().export_pfmea_report(TestCase1.token, ppp_serial, "excel", "1", "0_1_2_3_4_5_6_7_a", "1",
+                                                    "2", "pfmea_report2.xls")
+            pytest.assume(os.path.exists("pfmea_report/pfmea_report2.xls"), "导出失败")
+            report2 = os.stat("pfmea_report\pfmea_report2.xls")
+            pytest.assume(report2.st_size > 0, "导出文件大小为0")
+        with allure.step("step3:导出PFMEA报告--pdf/中英文/新版/合并"):
+            exportPFMEAReport().export_pfmea_report(TestCase1.token, ppp_serial, "pdf", "1", "0_1_2_3_4_5_6_7_a", "2",
+                                                    "1", "pfmea_report3.pdf")
+            pytest.assume(os.path.exists("pfmea_report/pfmea_report3.pdf"), "导出失败")
+            report3 = os.stat("pfmea_report\pfmea_report3.pdf")
+            pytest.assume(report3.st_size > 0, "导出文件大小为0")
+        with allure.step("step4:导出PFMEA报告--excel/中英文/新版/合并"):
+            exportPFMEAReport().export_pfmea_report(TestCase1.token, ppp_serial, "excel", "1", "0_1_2_3_4_5_6_7_a", "2",
+                                                    "1", "pfmea_report4.xls")
+            pytest.assume(os.path.exists("pfmea_report/pfmea_report4.xls"), "导出失败")
+            report4 = os.stat("pfmea_report\pfmea_report4.xls")
+            pytest.assume(report4.st_size > 0, "导出文件大小为0")
+
+    @allure.title("删除PFMEA")
+    def test_23(self):
         project_serial = TestCase1.pfmea_info["projectProcedure"]["projectSerial"]
         res = deletePFMEA().delete_pfmea(TestCase1.token, project_serial)
         pytest.assume(res["flag"], "删除PFMEA失败")

@@ -13,6 +13,7 @@ from libs.dfmea.feature_nodes_update import featureNodesUpdate
 from libs.dfmea.tool_feature_list import toolFeatureList
 from libs.pfmea.add_pfmea import addPFMEA
 from libs.pfmea.delete_pfmea import deletePFMEA
+from libs.pfmea.export_feature import exportFeature
 from libs.pfmea.import_feature import importFeature
 from libs.pfmea.pfmea_task import PfmeaTask
 from libs.program_list import programList
@@ -164,8 +165,14 @@ class TestCase1:
         res = importFeature().import_excel(TestCase1.token, project_serial)
         pytest.assume(res["data"] == "success", "导入Excel失败")
 
-    @allure.title("存档")
+    @allure.title("导出产品特性")
     def test_11(self):
+        exportFeature().del_last_file()  # 删除上次导出的产品特性
+        project_serial = TestCase1.pfmea_info["projectProcedure"]["projectSerial"]
+        exportFeature().export_feature(TestCase1.token, project_serial)
+
+    @allure.title("存档")
+    def test_12(self):
         project_serial = TestCase1.pfmea_info["projectProcedure"]["projectSerial"]
         with allure.step("step1:存档"):
             res = importFeature().archiveProductFeature(TestCase1.token, project_serial)
@@ -180,13 +187,13 @@ class TestCase1:
             pytest.assume(res["currentFeatureVersion"], "currentFeatureVersion为空")
 
     @allure.title("删除DFMEA")
-    def test_12(self):
+    def test_13(self):
         project_serial = TestCase1.dfmea_info["project"]["serialNum"]
         res = deleteDfmea().delete_dfmea(TestCase1.token, project_serial)
         pytest.assume(res["flag"], "删除DFMEA失败")
 
     @allure.title("删除PFMEA")
-    def test_13(self):
+    def test_14(self):
         project_serial = TestCase1.pfmea_info["projectProcedure"]["projectSerial"]
         res = deletePFMEA().delete_pfmea(TestCase1.token, project_serial)
         pytest.assume(res["flag"], "删除PFMEA失败")

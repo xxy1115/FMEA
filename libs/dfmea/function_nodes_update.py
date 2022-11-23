@@ -19,9 +19,12 @@ class functionNodesUpdate(BaseApi):
         for i in range(num):
             function_serial = res[i]["serialNum"]
             funTypeList = getFunctionType().get_function_type(token, function_serial)
+            function_type = ""
+            if len(funTypeList) > 0:
+                function_type = funTypeList[0]["functionType"]
             data["json"].append(
                 {"edituser": i + 1, "enFunctionName": res[i]["enFunction"], "functionName1": res[i]["function"],
-                 "functionSerial1": res[i]["serialNum"], "functionType": funTypeList[0]["functionType"], "level": "1",
+                 "functionSerial1": res[i]["serialNum"], "functionType": function_type, "level": "1",
                  "parentSerial": "-1", "pptSerial": ppt_serial, "programId": ""
                  })
         res = self.send(data)
