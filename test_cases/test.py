@@ -16,5 +16,5 @@ print(cur_time)
 # salt = "".join(sa)
 # print(salt)
 
-stats = os.stat("pfmea_report\pfmea_report4.xls")
-print(stats.st_size)
+# stats = os.stat("pfmea_report\pfmea_report4.xls")
+# print(stats.st_size)
