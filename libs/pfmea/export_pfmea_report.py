@@ -26,7 +26,7 @@ class exportPFMEAReport(BaseApi):
                 "pfmeaExportType": pfmeaExportType,  # 格式类型（1、标准、2新版）
                 "pfmeaViewType": pfmeaViewType,  # 导出视图（2单行、1合并）
                 "fmeaVersion": "当前版本7.0.1.6（正式版）",
-                "isOnlyReport": "isOnlyReport"
+                "isOnlyReport": ""
             }
         }
         res = self.send(data)

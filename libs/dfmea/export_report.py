@@ -20,11 +20,11 @@ class exportReport(BaseApi):
             "url": "/gateway/fmea-system/dfmeaRecordExport/dfmeaRecordExport",
             "data": {
                 "pptSerial": ppt_serial,
-                "exportType": exportType,
-                "exportLangType": exportLangType,
-                "selectedRange": selectedRange,
-                "dfmeaExportType": dfmeaExportType,
-                "dfmeaViewType": dfmeaViewType
+                "exportType": exportType,  # 导出类型（pdf/excel）
+                "exportLangType": exportLangType,  # 导出的语言（1中文、2英文、3中英文）
+                "selectedRange": selectedRange,  # 导出选项
+                "dfmeaExportType": dfmeaExportType,  # 格式类型（1、标准、2新版）
+                "dfmeaViewType": dfmeaViewType  # 导出视图（1合并、2单行）
             }
         }
         res = self.send(data)
