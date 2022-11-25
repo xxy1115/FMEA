@@ -293,25 +293,25 @@ class TestCase1:
             exportPFMEAReport().export_pfmea_report(TestCase1.token, ppp_serial, "pdf", "1", "0_1_2_3_4_5_6_7_a", "1",
                                                     "2", "pfmea_report1.pdf")
             pytest.assume(os.path.exists("pfmea_report/pfmea_report1.pdf"), "导出失败")
-            report1 = os.stat("pfmea_report\pfmea_report1.pdf")
+            report1 = os.stat("pfmea_report/pfmea_report1.pdf")
             pytest.assume(report1.st_size > 0, "导出文件大小为0")
         with allure.step("step2:导出PFMEA报告--excel/中文/标准版/单行"):
             exportPFMEAReport().export_pfmea_report(TestCase1.token, ppp_serial, "excel", "1", "0_1_2_3_4_5_6_7_a", "1",
                                                     "2", "pfmea_report2.xls")
             pytest.assume(os.path.exists("pfmea_report/pfmea_report2.xls"), "导出失败")
-            report2 = os.stat("pfmea_report\pfmea_report2.xls")
+            report2 = os.stat("pfmea_report/pfmea_report2.xls")
             pytest.assume(report2.st_size > 0, "导出文件大小为0")
         with allure.step("step3:导出PFMEA报告--pdf/中英文/新版/合并"):
             exportPFMEAReport().export_pfmea_report(TestCase1.token, ppp_serial, "pdf", "1", "0_1_2_3_4_5_6_7_a", "2",
                                                     "1", "pfmea_report3.pdf")
             pytest.assume(os.path.exists("pfmea_report/pfmea_report3.pdf"), "导出失败")
-            report3 = os.stat("pfmea_report\pfmea_report3.pdf")
+            report3 = os.stat("pfmea_report/pfmea_report3.pdf")
             pytest.assume(report3.st_size > 0, "导出文件大小为0")
         with allure.step("step4:导出PFMEA报告--excel/中英文/新版/合并"):
             exportPFMEAReport().export_pfmea_report(TestCase1.token, ppp_serial, "excel", "1", "0_1_2_3_4_5_6_7_a", "2",
                                                     "1", "pfmea_report4.xls")
             pytest.assume(os.path.exists("pfmea_report/pfmea_report4.xls"), "导出失败")
-            report4 = os.stat("pfmea_report\pfmea_report4.xls")
+            report4 = os.stat("pfmea_report/pfmea_report4.xls")
             pytest.assume(report4.st_size > 0, "导出文件大小为0")
 
     @allure.title("删除PFMEA")

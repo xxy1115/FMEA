@@ -27,6 +27,7 @@ class exportFeature(BaseApi):
         file_name = f'PFMEA产品特性{cur_date}.xls'
         with open(f'pfmea_feature/{file_name}', "wb") as f:
             f.write(res.content)
+        return file_name
 
     def del_last_file(self):
         """删除上次生成的产品特性"""

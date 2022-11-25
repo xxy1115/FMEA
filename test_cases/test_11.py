@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+import os
+
 import pytest
 import allure
 
@@ -169,7 +171,10 @@ class TestCase1:
     def test_11(self):
         exportFeature().del_last_file()  # 删除上次导出的产品特性
         project_serial = TestCase1.pfmea_info["projectProcedure"]["projectSerial"]
-        exportFeature().export_feature(TestCase1.token, project_serial)
+        file_name = exportFeature().export_feature(TestCase1.token, project_serial)
+        pytest.assume(os.path.exists(f"pfmea_feature/{file_name}"), "导出失败")
+        report = os.stat(f"pfmea_feature/{file_name}")
+        pytest.assume(report.st_size > 0, "导出文件大小为0")
 
     @allure.title("存档")
     def test_12(self):
