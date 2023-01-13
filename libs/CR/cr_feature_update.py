@@ -12,7 +12,7 @@ class crFeatureUpdate(BaseApi):
         res = getFeature().get_feature(token, product_type)
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFeature/saveFeatures",
+            "url": "/gateway/fmea-dfmea/projectFeature/saveFeatures",
             "json": []
         }
         for i in range(num):
@@ -32,7 +32,7 @@ class crFeatureUpdate(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["projectFeatureList"]
 
     def del_cr_feature(self, token, serial_num):

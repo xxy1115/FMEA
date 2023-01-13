@@ -14,7 +14,7 @@ class crExport(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/exportCR",
+            "url": "/gateway/fmea-dfmea/project/exportCR",
             "data": {
                 "serialNum": "-1",
                 "projectSerial": project_serial,

@@ -15,7 +15,7 @@ class savePfRelation(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/ktNew/forEachSaveGnjmjzPfRelation",
+            "url": "/gateway/fmea-dfmea/ktNew/forEachSaveGnjmjzPfRelation",
             "json": {
                 "parentPfSerial": first_pf_serial,
                 "pfSerials": [second_pf_serial],
@@ -25,7 +25,7 @@ class savePfRelation(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def save_consequence_pf_relation(self, token, first_pf_serial, first_pfe_serial, second_pf_serial):
@@ -37,7 +37,7 @@ class savePfRelation(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/ktNew/saveConsequenceGnjmjzPfRelation",
+            "url": "/gateway/fmea-dfmea/ktNew/saveConsequenceGnjmjzPfRelation",
             "json": {
                 "parentPfSerials": [first_pf_serial],
                 "parentPfeSerials": [first_pfe_serial],
@@ -47,5 +47,5 @@ class savePfRelation(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result

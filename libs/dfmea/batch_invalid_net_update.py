@@ -24,7 +24,7 @@ class batchInvalidNetUpdate(BaseApi):
         second_PptSerial = second["pptSerial"]  # currentSerial和nextSerial传同样值
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/invalidNet/saveBatchInvalidNet",
+            "url": "/gateway/fmea-dfmea/invalidNet/saveBatchInvalidNet",
             "json": [{
                 "currentSerial": second_PptSerial,
                 "firstPfSerial": first_PfSerial,
@@ -41,12 +41,12 @@ class batchInvalidNetUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["flag"]
 
     def batch_invalid_del(self, token, first_PidSerial, second_PidSerial):
         self.token = token
-        url = f'/gateway/fmea-system/invalidNet/deleteConsequncesByFirstPidSerialAndSecondPidSerial/{first_PidSerial}/{second_PidSerial}'
+        url = f'/gateway/fmea-dfmea/invalidNet/deleteConsequncesByFirstPidSerialAndSecondPidSerial/{first_PidSerial}/{second_PidSerial}'
         data = {
             "method": "get",
             "url": url
@@ -54,5 +54,5 @@ class batchInvalidNetUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["flag"]

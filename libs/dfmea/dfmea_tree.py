@@ -9,11 +9,11 @@ class DfmeaTree(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/gateway/fmea-system/dfmeaTree/getDfmeaTreeBySerialNum",
+            "url": "/gateway/fmea-dfmea/dfmeaTree/getDfmeaTreeBySerialNum",
             "params": {"serialNum": serial_num}
         }
         res = self.send(data)
         if res.status_code != 200:
             return False
-        dfmea_tree = json.loads(res.json()["data"])
+        dfmea_tree = res.json()["data"]
         return dfmea_tree["root"]

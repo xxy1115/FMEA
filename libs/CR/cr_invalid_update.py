@@ -12,7 +12,7 @@ class crInvalidUpdate(BaseApi):
         res = getInvalid().get_dfmea_invalid(token, product_type)
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-dfmea/projectInvalid/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -33,7 +33,7 @@ class crInvalidUpdate(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def del_cr_invalid(self, token, invalid_name, pif_serial, serial_num):

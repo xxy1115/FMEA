@@ -11,7 +11,7 @@ class crProductUpdate(BaseApi):
         product_Id = res[3]["productId"]  # 取产品库中第4个产品
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/saveCRUpProduct",
+            "url": "/gateway/fmea-dfmea/project/saveCRUpProduct",
             "json": {
                 "parentSerial": "0",
                 "projectSerial": project_serial,
@@ -23,18 +23,18 @@ class crProductUpdate(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data
 
     def del_cr_product(self, token, ppt_serial):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/delCrTree",
+            "url": "/gateway/fmea-dfmea/project/delCrTree",
             "data": ppt_serial
         }
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result

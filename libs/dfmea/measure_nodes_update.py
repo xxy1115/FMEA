@@ -11,7 +11,7 @@ class measureNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectMeasure/savePM",
+            "url": "/gateway/fmea-dfmea/projectMeasure/savePM",
             "json": []
         }
         if measures_type == 0 or measures_type == 2:  # 0是现行预防 1是现行探测，2是优化预防 3是优化探测
@@ -53,10 +53,10 @@ class measureNodesUpdate(BaseApi):
         # res = self.send(data["api"])
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         flag = res_data["flag"]
         change_reason_list = res_data["changeReasonList"]
-        project_measures = json.loads(res_data["projectMeasures"])
+        project_measures = res_data["projectMeasures"]
         return [flag, change_reason_list, project_measures]
 
     def edit_measure_nodes(self, token, product_type, pid_serial, serial_num, project_serial, ppt_serial,
@@ -67,7 +67,7 @@ class measureNodesUpdate(BaseApi):
             measure = res[3]
             data = {
                 "method": "post",
-                "url": "/gateway/fmea-system/projectMeasure/updatePM",
+                "url": "/gateway/fmea-dfmea/projectMeasure/updatePM",
                 "json": {
                     "det": "",
                     "enMeasuresName": measure["enMeasure"],
@@ -89,7 +89,7 @@ class measureNodesUpdate(BaseApi):
             measure = res[3]
             data = {
                 "method": "post",
-                "url": "/gateway/fmea-system/projectMeasure/updatePM",
+                "url": "/gateway/fmea-dfmea/projectMeasure/updatePM",
                 "json": {
                     "det": measure["det"],
                     "enMeasuresName": measure["enMeasure"],
@@ -124,7 +124,7 @@ class measureNodesUpdate(BaseApi):
         # res = self.send(data["api"])
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def del_measure_nodes(self, token, measure_name, pid_serial, serial_num, reason_name,
@@ -132,7 +132,7 @@ class measureNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectMeasure/delete",
+            "url": "/gateway/fmea-dfmea/projectMeasure/delete",
             "json": {
                 "invalidMode": reason_name,  # 受冲击变形或者断裂(O:3,D:3)未加(O:3,D:3)
                 "measure": measure_name,  # 同上
@@ -148,5 +148,5 @@ class measureNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result

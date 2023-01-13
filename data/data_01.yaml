@@ -5,7 +5,7 @@ user:
 project:
   "api":
     "method": "post"
-    "url": "/gateway/fmea-system/project/saveOrUpdate"
+    "url": "/gateway/fmea-dfmea/project/saveOrUpdate"
     "json":
       "columns": [ ]
       "customer": ""
@@ -39,7 +39,7 @@ project:
 project_template:
   "api":
     "method": "post"
-    "url": "/gateway/fmea-system/project/saveOrUpdate"
+    "url": "/gateway/fmea-dfmea/project/saveOrUpdate"
     "json":
       "columns": [ ]
       "customer": ""

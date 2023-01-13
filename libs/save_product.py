@@ -68,7 +68,7 @@ class saveProduct(BaseApi):
         en_product_name = res[0]["enProductName"]
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/addProductNodes",
+            "url": "/gateway/fmea-dfmea/project/addProductNodes",
             "json": [{
                 "enProductName": en_product_name,
                 "level": 1,
@@ -85,5 +85,5 @@ class saveProduct(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data

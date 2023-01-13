@@ -9,7 +9,7 @@ class DfmeaShare(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/shareProject",
+            "url": "/gateway/fmea-dfmea/project/shareProject",
             "json": {
                 "isShare": "2",  # 全部共享
                 "projectId": project_id,
@@ -22,27 +22,27 @@ class DfmeaShare(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data
 
     def selectProjectShareMember(self, token, project_id):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/selectProjectShareMember",
+            "url": "/gateway/fmea-dfmea/project/selectProjectShareMember",
             "data": project_id
         }
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data
 
     def dfmea_share_part(self, token, project_id, project_serial, user_id, user_name):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/shareProject",
+            "url": "/gateway/fmea-dfmea/project/shareProject",
             "json": {
                 "isShare": "1",  # 部分共享
                 "projectId": project_id,
@@ -60,5 +60,5 @@ class DfmeaShare(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data

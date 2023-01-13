@@ -15,7 +15,7 @@ class BOM(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/isProjectHasNodeChildren",
+            "url": "/gateway/fmea-dfmea/project/isProjectHasNodeChildren",
             "data": project_serial
         }
         res = self.send(data)
@@ -23,7 +23,7 @@ class BOM(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["flag"]
 
     def bom_list(self, token, product_Id, search_key=""):
@@ -62,7 +62,7 @@ class BOM(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/gateway/fmea-system/projectBom/importBomToProject",
+            "url": "/gateway/fmea-dfmea/projectBom/importBomToProject",
             "params": {
                 "projectSerial": project_serial,
                 "bomSerial": bom_serial,
@@ -74,7 +74,7 @@ class BOM(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def get_bom_list_by_serialNum(self, token, project_serial):
@@ -82,7 +82,7 @@ class BOM(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/gateway/fmea-system/bomList/getBomListBySerialNum",
+            "url": "/gateway/fmea-dfmea/bomList/getBomListBySerialNum",
             "params": {
                 "serialNum": project_serial
             }
@@ -92,14 +92,14 @@ class BOM(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["bomList"]["children"]
 
     def import_excel(self, token, project_serial):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/bomList/bomImport",
+            "url": "/gateway/fmea-dfmea/bomList/bomImport",
             "files": {"excelFile": ("bom.xls", open("bom.xls", "rb"), "application/vnd.ms-excel")},
             "data": {
                 "projectSerial": project_serial,
@@ -112,5 +112,5 @@ class BOM(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["data"]

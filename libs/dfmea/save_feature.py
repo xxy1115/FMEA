@@ -45,7 +45,7 @@ class saveFeature(BaseApi):
         serial_num = product_feature_category["serialNum"]
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFeature/saveFeatures",
+            "url": "/gateway/fmea-dfmea/projectFeature/saveFeatures",
             "json": [{
                 "controlFeature": "1",
                 "enFeature": en_feature,
@@ -64,5 +64,5 @@ class saveFeature(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["projectFeatureList"]

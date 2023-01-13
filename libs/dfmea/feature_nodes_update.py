@@ -11,7 +11,7 @@ class featureNodesUpdate(BaseApi):
         res = getFeature().get_feature(token, product_type)
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFeature/saveFeatures",
+            "url": "/gateway/fmea-dfmea/projectFeature/saveFeatures",
             "json": []
         }
         for i in range(num):
@@ -26,7 +26,7 @@ class featureNodesUpdate(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["projectFeatureList"]
 
     def edit_feature_nodes(self, token, product_type, serial_num):
@@ -35,7 +35,7 @@ class featureNodesUpdate(BaseApi):
         feature = res[3]
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFeature/updateProjectFeature",
+            "url": "/gateway/fmea-dfmea/projectFeature/updateProjectFeature",
             "json": {
                 "enTechnicalRequirements": "",
                 "feature": feature["featureExplain"],
@@ -48,7 +48,7 @@ class featureNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["flag"]
         #
         # search_key = data["api"]["json"]["feature"]
@@ -60,20 +60,16 @@ class featureNodesUpdate(BaseApi):
         #     return False
         # data["api"]["json"]["serialNum"] = serial_num
         # res = self.send(data["api"])
-        if res.status_code != 200:
-            return False
-        result = json.loads(res.json()["data"])
-        return result["flag"]
 
     def del_feature_nodes(self, token, serial_num):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFeature/deleteFeature",
+            "url": "/gateway/fmea-dfmea/projectFeature/deleteFeature",
             "data": serial_num
         }
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["flag"]

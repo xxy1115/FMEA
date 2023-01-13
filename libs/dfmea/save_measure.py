@@ -47,7 +47,7 @@ class saveMeasure(BaseApi):
 
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectMeasure/savePM",
+            "url": "/gateway/fmea-dfmea/projectMeasure/savePM",
             "json": [{
                 "det": "10",
                 "edituser": 1,
@@ -65,8 +65,8 @@ class saveMeasure(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
-        return json.loads(res_data["projectMeasures"])
+        res_data = res.json()["data"]
+        return res_data["projectMeasures"]
 
     def save_pre_measure(self, token, applicableObject, pre_measure_type, product_types):
         """
@@ -109,7 +109,7 @@ class saveMeasure(BaseApi):
 
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectMeasure/savePM",
+            "url": "/gateway/fmea-dfmea/projectMeasure/savePM",
             "json": [{
                 "edituser": 1,
                 "enMeasuresName": enMeasure,
@@ -128,5 +128,5 @@ class saveMeasure(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["projectMeasures"]

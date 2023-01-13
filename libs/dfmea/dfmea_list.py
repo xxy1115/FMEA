@@ -10,7 +10,7 @@ class DfmeaList(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/list",
+            "url": "/gateway/fmea-dfmea/project/list",
             "json": {
                 "from": 0,
                 "pageSize": 12,
@@ -25,7 +25,7 @@ class DfmeaList(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["items"]
 
     def share_dfmea_list(self, token, user_id, search_key=""):
@@ -33,7 +33,7 @@ class DfmeaList(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/gateway/fmea-system/project/selectShareProject",
+            "url": "/gateway/fmea-dfmea/project/selectShareProject",
             "params": {
                 "from": 0,
                 "pageSize": 12,
@@ -45,14 +45,14 @@ class DfmeaList(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["items"]
 
     def all_dfmea_list(self, token, product_type, search_key=""):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/list",
+            "url": "/gateway/fmea-dfmea/project/list",
             "json": {
                 "customer": "",
                 "depNames": "",
@@ -91,14 +91,14 @@ class DfmeaList(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["items"]
 
     def template_dfmea_list(self, token, user_id, product_type, search_key=""):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/productTemplate/getAllTemplateList",
+            "url": "/gateway/fmea-dfmea/productTemplate/getAllTemplateList",
             "json": {
                 "customer": "",
                 "depNames": "",
@@ -139,5 +139,5 @@ class DfmeaList(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["items"]

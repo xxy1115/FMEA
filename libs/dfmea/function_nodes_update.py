@@ -13,7 +13,7 @@ class functionNodesUpdate(BaseApi):
         res = getFunction().get_function(token, product_type)  # 查询功能
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFunction/saveOrUpdate",
+            "url": "/gateway/fmea-dfmea/projectFunction/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -45,7 +45,7 @@ class functionNodesUpdate(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["projectFunctions"]
 
     def edit_function_nodes(self, token, product_type, project_serial, serial_num):
@@ -62,7 +62,7 @@ class functionNodesUpdate(BaseApi):
         function = res[3]
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFunction/updatePF",
+            "url": "/gateway/fmea-dfmea/projectFunction/updatePF",
             "json": {
                 "enFunctionName": function["enFunction"],
                 "functionName1": function["function"],
@@ -75,14 +75,14 @@ class functionNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["flag"]
 
     def del_function_nodes(self, token, serial_num, fun_name, pif_serial):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFunction/delete",
+            "url": "/gateway/fmea-dfmea/projectFunction/delete",
             "json": {
                 "functionName": fun_name,
                 "pifSerial": pif_serial,
@@ -92,5 +92,5 @@ class functionNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result

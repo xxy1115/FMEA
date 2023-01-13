@@ -57,7 +57,7 @@ class addDFMEATemplate(BaseApi):
         res = self.send(data["api"])
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data
 
     def get_column_list(self):
@@ -74,7 +74,7 @@ class addDFMEATemplate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/productTemplate/saveOrUpdateTemplate",
+            "url": "/gateway/fmea-dfmea/productTemplate/saveOrUpdateTemplate",
             "json": {
                 "pptSerialNum": ppt_serial,
                 "productId": product_id,
@@ -90,5 +90,5 @@ class addDFMEATemplate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data

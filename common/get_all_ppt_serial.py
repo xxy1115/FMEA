@@ -9,12 +9,12 @@ class getAllPptSerial(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": f"/gateway/fmea-system/project/getAllPptSerialByProjectSerial/{project_serial}"
+            "url": f"/gateway/fmea-dfmea/project/getAllPptSerialByProjectSerial/{project_serial}"
         }
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
         # dict_obj = {}  # 存储传入的字典key和对应的value
         # for key in dict:

@@ -12,7 +12,7 @@ class KT(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/getAllKtNodeNew",
+            "url": "/gateway/fmea-dfmea/project/getAllKtNodeNew",
             "json": ppt_serials
         }
         res = self.send(data)
@@ -20,14 +20,14 @@ class KT(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def get_kt(self, token, project_serial, ppt_serial):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/ktNew/getKt",
+            "url": "/gateway/fmea-dfmea/ktNew/getKt",
             "json": {
                 "currentPptSerial": ppt_serial,
                 "projectSerial": project_serial
@@ -38,7 +38,7 @@ class KT(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def save_kt_data(self, token, ppt_serial, project_serial, kt_serial, ktNodeList, ktNodes):
@@ -65,7 +65,7 @@ class KT(BaseApi):
         new_line_serial = "".join(num)
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/ktNew/saveKtData",
+            "url": "/gateway/fmea-dfmea/ktNew/saveKtData",
             "json": {
                 "affirmLineList": [{"serialNum": new_line_serial}],
                 "currentPptSerial": ppt_serial,
@@ -113,7 +113,7 @@ class KT(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     # def save_line_type(self, token, project_node_serial, project_serial):

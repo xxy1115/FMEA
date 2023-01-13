@@ -14,7 +14,7 @@ class getInterface(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/interfaceDescribe/list",
+            "url": "/gateway/fmea-knowledge/interfaceDescribe/list",
             "json": {
                 "from": 0,
                 "pageSize": 10,

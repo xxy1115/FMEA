@@ -8,7 +8,7 @@ class selectUpProduct(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/selectUpProduct",
+            "url": "/gateway/fmea-dfmea/project/selectUpProduct",
             "data": project_serial
         }
         res = self.send(data)
@@ -16,5 +16,5 @@ class selectUpProduct(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result

@@ -19,7 +19,7 @@ class exteralIFUpdate(BaseApi):
         in_products = res["list"][0]
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/ktNew/saveExteralInterfaceList",
+            "url": "/gateway/fmea-dfmea/ktNew/saveExteralInterfaceList",
             "json": []
         }
         for i in range(num):
@@ -45,14 +45,14 @@ class exteralIFUpdate(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def del_exteral_IF(self, token, pif_serial):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/ktNew/deleteKtLineBySerial",
+            "url": "/gateway/fmea-dfmea/ktNew/deleteKtLineBySerial",
             "data": pif_serial
         }
         res = self.send(data)
@@ -60,5 +60,5 @@ class exteralIFUpdate(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = res.json()["data"]
+        result = res.json()["meta"]["success"]
         return result

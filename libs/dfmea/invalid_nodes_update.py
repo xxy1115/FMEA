@@ -11,7 +11,7 @@ class invalidNodesUpdate(BaseApi):
         res = getInvalid().get_invalid(token, product_type)
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-dfmea/projectInvalid/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -37,7 +37,7 @@ class invalidNodesUpdate(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["projectInvalids"]
 
     def edit_invalid_nodes(self, token, product_type, serial_num):
@@ -46,7 +46,7 @@ class invalidNodesUpdate(BaseApi):
         product = res[3]
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectInvalid/updatePI",
+            "url": "/gateway/fmea-dfmea/projectInvalid/updatePI",
             "json": {
                 "enInvalidModeName": product["enInvalidMode"],
                 "invalidmodeName": product["invalidmode"],
@@ -59,14 +59,14 @@ class invalidNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["flag"]
 
     def del_invalid_nodes(self, token, invalid_name, pif_serial, serial_num):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectInvalid/delete",
+            "url": "/gateway/fmea-dfmea/projectInvalid/delete",
             "json": {
                 "pidName": invalid_name,
                 "serialNum": serial_num
@@ -76,5 +76,5 @@ class invalidNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result

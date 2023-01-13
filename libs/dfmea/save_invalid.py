@@ -54,7 +54,7 @@ class saveInvalid(BaseApi):
 
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-dfmea/projectInvalid/saveOrUpdate",
             "json": [{
                 "edituser": 1,
                 "enInvalidModeName": enInvalidMode,
@@ -72,5 +72,5 @@ class saveInvalid(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["projectInvalids"]

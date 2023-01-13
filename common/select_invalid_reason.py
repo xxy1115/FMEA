@@ -14,7 +14,7 @@ class selectInvalidReasonList(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/invalidNet/selectInvalidReasonListByProduct",
+            "url": "/gateway/fmea-dfmea/invalidNet/selectInvalidReasonListByProduct",
             "json": {
                 "depNames": "",
                 "endTime": "",
@@ -54,7 +54,7 @@ class selectInvalidReasonList(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["items"]
 
     def select_reason_list_by_inner_interface(self, token, product_type, pf_serial, ppt_serial, search_key=""):
@@ -66,7 +66,7 @@ class selectInvalidReasonList(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/invalidNet/selectReasonListByInnerInterface",
+            "url": "/gateway/fmea-dfmea/invalidNet/selectReasonListByInnerInterface",
             "json": {
                 "depNames": "",
                 "endTime": "",
@@ -106,5 +106,5 @@ class selectInvalidReasonList(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["items"]

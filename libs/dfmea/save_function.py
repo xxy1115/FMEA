@@ -46,7 +46,7 @@ class saveFunction(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFunction/saveOrUpdate",
+            "url": "/gateway/fmea-dfmea/projectFunction/saveOrUpdate",
             "json": [{
                 "edituser": 1,
                 "enFunctionName": en_function,
@@ -64,5 +64,5 @@ class saveFunction(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data["projectFunctions"]

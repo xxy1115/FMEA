@@ -14,7 +14,7 @@ class crFunctionUpdate(BaseApi):
         res = getFunction().get_function(token, product_type)  # 查询功能
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectFunction/saveOrUpdate",
+            "url": "/gateway/fmea-dfmea/projectFunction/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -34,7 +34,7 @@ class crFunctionUpdate(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def del_cr_function(self, token, serial_num, fun_name, pif_serial):

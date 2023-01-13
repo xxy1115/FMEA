@@ -12,7 +12,7 @@ class DfmeaTask(BaseApi):
         # task_num = self.get_max_num()
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectTask/saveOrUpdate",
+            "url": "/gateway/fmea-dfmea/projectTask/saveOrUpdate",
             "json": {
                 "deliverable": project["deliverable"],
                 "isApproval": "1",
@@ -33,5 +33,5 @@ class DfmeaTask(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
-        return [result["flag"], task_num]
+        result = res.json()["data"]
+        return [result, task_num]

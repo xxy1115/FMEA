@@ -9,7 +9,7 @@ class selectFunctionProductTypeBySerialNum(BaseApi):
         self.token = token
         data = {
             "method": "get",
-            "url": "/gateway/fmea-system/projectFunction/selectFunctionProductTypeBySerialNum",
+            "url": "/gateway/fmea-dfmea/projectFunction/selectFunctionProductTypeBySerialNum",
             "params": {
                 "serialNum": serial_num
             }
@@ -19,5 +19,5 @@ class selectFunctionProductTypeBySerialNum(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result

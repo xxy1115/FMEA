@@ -59,7 +59,7 @@ class addDFMEA(BaseApi):
         res = self.send(data["api"])
         if res.status_code != 200:
             return False
-        res_data = json.loads(res.json()["data"])
+        res_data = res.json()["data"]
         return res_data
 
     def get_column_list(self):

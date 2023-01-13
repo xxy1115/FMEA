@@ -14,7 +14,7 @@ class getValidPptTree(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/project/getValidPptTreeByProjectSerial",
+            "url": "/gateway/fmea-dfmea/project/getValidPptTreeByProjectSerial",
             "json": {
                 "projectSerial": project_serial,
                 "searchValue": search_key,
@@ -23,5 +23,5 @@ class getValidPptTree(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        tree = json.loads(res.json()["data"])["tree"]
+        tree = res.json()["data"]["tree"]
         return tree

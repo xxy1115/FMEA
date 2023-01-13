@@ -11,7 +11,7 @@ class reasonNodesUpdate(BaseApi):
         res = getInvalid().get_invalid(token, product_type)
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-dfmea/projectInvalid/saveOrUpdate",
             "json": []
         }
         for i in range(num):
@@ -32,7 +32,7 @@ class reasonNodesUpdate(BaseApi):
         # res = self.send(data["api"])
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         project_invalids = result["projectInvalids"]
         # 获取失效网
         project_invalid_nets = self.save_invalid_nets(project_invalids, node_data, token)
@@ -44,7 +44,7 @@ class reasonNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/ktNew/forEachSaveGnjmjzPfRelation",
+            "url": "/gateway/fmea-dfmea/ktNew/forEachSaveGnjmjzPfRelation",
             "json": {
                 "parentPfSerial": pf_serial,
                 "pfSerials": [],
@@ -54,14 +54,14 @@ class reasonNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def save_invalid_nets(self, project_invalids, node_data, token):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/invalidNet/saveProjectInvalidNets",
+            "url": "/gateway/fmea-dfmea/invalidNet/saveProjectInvalidNets",
             "json": []
         }
         for i, item in enumerate(project_invalids):
@@ -72,7 +72,7 @@ class reasonNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["projectInvalidNets"]
 
     def edit_reason_nodes(self, token, product_type, serial_num):
@@ -81,7 +81,7 @@ class reasonNodesUpdate(BaseApi):
         product = res[3]
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectInvalid/save",
+            "url": "/gateway/fmea-dfmea/projectInvalid/save",
             "json": {
                 "enInvalidModeName": product["enInvalidMode"],
                 "invalidmodeName": product["invalidmode"],
@@ -100,7 +100,7 @@ class reasonNodesUpdate(BaseApi):
         # res = self.send(data["api"])
         if res.status_code != 200:
             return False
-        edit_res = json.loads(res.json()["data"])
+        edit_res = res.json()["data"]
         second_pid_serial = edit_res["projectInvalid"]["serialNum"]
         update_invalid_nets = self.update_invalid_nets(token, second_pid_serial, serial_num)
         return update_invalid_nets
@@ -109,7 +109,7 @@ class reasonNodesUpdate(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/invalidNet/updateDfmeaProjectInvalidNet",
+            "url": "/gateway/fmea-dfmea/invalidNet/updateDfmeaProjectInvalidNet",
             "json": {
                 "secondPfSerial": "",
                 "secondPidSerial": second_pid_serial,
@@ -121,14 +121,14 @@ class reasonNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["projectInvalidNet"]
 
     def del_reason_nodes(self, token, name, pif_serial, serial_num):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/invalidNet/delete",
+            "url": "/gateway/fmea-dfmea/invalidNet/delete",
             "json": {
                 "name": name,
                 "pifSerial": pif_serial,
@@ -139,5 +139,5 @@ class reasonNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result

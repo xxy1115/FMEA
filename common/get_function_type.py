@@ -15,7 +15,7 @@ class getFunctionType(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/knowledge_end/function/getFunctionTypeList",
+            "url": "/gateway/fmea-knowledge/function/getFunctionTypeList",
             "data": function_serial
         }
         res = self.send(data)

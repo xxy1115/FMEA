@@ -10,7 +10,7 @@ class saveInvalidNets(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/invalidNet/saveProjectInvalidNets",
+            "url": "/gateway/fmea-dfmea/invalidNet/saveProjectInvalidNets",
             "json": []
         }
         if flag == 0:
@@ -54,7 +54,7 @@ class saveInvalidNets(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         if result["flag"] and result["flag"] != True:
             return False
         return result["projectInvalidNets"]

@@ -50,7 +50,7 @@ class saveReason(BaseApi):
 
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/projectInvalid/saveOrUpdate",
+            "url": "/gateway/fmea-dfmea/projectInvalid/saveOrUpdate",
             "json": [{
                 "edituser": 2,
                 "invalidmodeName": invalidmode,
@@ -65,7 +65,7 @@ class saveReason(BaseApi):
             return False
         if res.json()["meta"] and res.json()["meta"]["success"] != True:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         project_invalids = result["projectInvalids"]
         # 获取失效网
         project_invalid_nets = self.save_invalid_nets(token, project_invalids[0]["serialNum"], invalidmode, invalid_obj)
@@ -77,7 +77,7 @@ class saveReason(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/ktNew/forEachSaveGnjmjzPfRelation",
+            "url": "/gateway/fmea-dfmea/ktNew/forEachSaveGnjmjzPfRelation",
             "json": {
                 "parentPfeSerial": pfe_serial,
                 "pfSerials": [],
@@ -87,14 +87,14 @@ class saveReason(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
 
     def save_invalid_nets(self, token, serial_number, invalidmode, invalid_obj):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/invalidNet/saveProjectInvalidNets",
+            "url": "/gateway/fmea-dfmea/invalidNet/saveProjectInvalidNets",
             "json": [{
                 "det": "10",
                 "edituser": "2",
@@ -114,5 +114,5 @@ class saveReason(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["projectInvalidNets"]
