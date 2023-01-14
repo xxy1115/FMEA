@@ -9,7 +9,7 @@ class importFeature(BaseApi):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/kcds/selectAllDfmeaProductFeatureList",
+            "url": "/gateway/fmea-dfmea/kcds/selectAllDfmeaProductFeatureList",
             "json": {
                 "depNames": "",
                 "endTime": "",
@@ -46,14 +46,14 @@ class importFeature(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["items"]
 
     def dfmeaFeatureProductIdList(self, token, product_type, product_id, search_key=""):
         self.token = token
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/kcds/selectProductFeatureByProductId",
+            "url": "/gateway/fmea-dfmea/kcds/selectProductFeatureByProductId",
             "json": {
                 "depNames": "",
                 "endTime": "",
@@ -90,7 +90,7 @@ class importFeature(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result["items"]
 
     def saveImportFeature(self, token, pfmea_project_serial, ppt_serial, product_id, features):

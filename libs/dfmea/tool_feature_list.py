@@ -27,7 +27,7 @@ class toolFeatureList(BaseApi):
             })
         data = {
             "method": "post",
-            "url": "/gateway/fmea-system/kcds/publishKcds",
+            "url": "/gateway/fmea-dfmea/kcds/publishKcds",
             "json": {
                 "kcdsItems": kcdsItems,
                 "lanTuMessageType": "0",
@@ -42,5 +42,5 @@ class toolFeatureList(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = json.loads(res.json()["data"])
+        result = res.json()["data"]
         return result
