@@ -15,7 +15,7 @@ class BaseApi:
         :param data: 请求信息
         :return: 响应体
         """
-        if "http:" not in data["url"]:  # url拼接后直接改变了yaml数据，再次使用不需要拼接
+        if "http" not in data["url"]:  # url拼接后直接改变了yaml数据，再次使用不需要拼接
             data["url"] = HOST + data["url"]
         if "params" not in data:
             data["params"] = {}

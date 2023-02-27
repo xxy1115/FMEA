@@ -100,7 +100,7 @@ class BOM(BaseApi):
         data = {
             "method": "post",
             "url": "/gateway/fmea-dfmea/bomList/bomImport",
-            "files": {"excelFile": ("bom.xls", open("bom.xls", "rb"), "application/vnd.ms-excel")},
+            "files": {"excelFile": ("bom_v7.xls", open("bom_v7.xls", "rb"), "application/vnd.ms-excel")},
             "data": {
                 "projectSerial": project_serial,
                 "pptSerial": "",

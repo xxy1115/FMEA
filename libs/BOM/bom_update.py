@@ -13,7 +13,7 @@ class bomUpdate(BaseApi):
         self.token = token
         max_num = self.get_max_num(token)  # 获取bom编号
         products = getProduct().get_product(token, product_type)
-        product = products[2]  # 取产品库中第3个产品
+        product = products[3]  # 取产品库中第3个产品
         data = {
             "method": "post",
             "url": "/gateway/fmea-maindata/bom/save",
