@@ -122,7 +122,10 @@ class TestCase1:
         with allure.step("step1:添加上级产品"):
             res = crProductUpdate().add_cr_product(TestCase1.token, TestCase1.product_type, project_serial)
             pytest.assume(res["flag"], "添加上级产品失败")
-            TestCase1.ppt_serial = res["pptSerial"]
+            # TestCase1.ppt_serial = res["pptSerial"]
+            TestCase1.ppt_serial = res["newNodesData"][0]["serialNum"]
+
+
         with allure.step("step2:selectUpProduct"):
             res = selectUpProduct().select_up_product(TestCase1.token, project_serial)
             pytest.assume(res, "失败")

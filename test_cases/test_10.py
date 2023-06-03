@@ -205,7 +205,7 @@ class TestCase1:
     def test_20(self):
         serial_num = TestCase1.added_procedures_nodes[1]["serialNum"]  # 删除第二个工序节点
         res = procedureNodesUpdate().del_procedure_nodes(TestCase1.token, serial_num)
-        pytest.assume(res["flag"], "删除工序节点失败")
+        pytest.assume(res["success"], "删除工序节点失败")
 
     @allure.title("结构树添加要素节点")
     def test_21(self):

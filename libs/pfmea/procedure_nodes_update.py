@@ -63,5 +63,5 @@ class procedureNodesUpdate(BaseApi):
         res = self.send(data)
         if res.status_code != 200:
             return False
-        result = res.json()["data"]
+        result = res.json()["meta"]
         return result
